@@ -1,7 +1,7 @@
 package ro.sci.carrental.calendar;
 
-import ro.sci.carrental.domain.Car;
-import ro.sci.carrental.domain.Customer;
+import ro.sci.carrental.domain.car.Car;
+import ro.sci.carrental.domain.customer.Customer;
 
 /**
  * Interface for scheduling a rental.

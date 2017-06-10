@@ -1,6 +1,6 @@
 package ro.sci.carrental.repository;
 
-import ro.sci.carrental.domain.Customer;
+import ro.sci.carrental.domain.customer.Customer;
 
 import java.util.List;
 
@@ -33,6 +33,11 @@ public interface CustomerRepository {
      * Add a customer in the system.
      */
     void add(Customer customer);
+
+    /**
+     * Add all customers in the system.
+     */
+    void addAll(List<Customer> customers);
 
     /**
      * Delete a customer from the system.

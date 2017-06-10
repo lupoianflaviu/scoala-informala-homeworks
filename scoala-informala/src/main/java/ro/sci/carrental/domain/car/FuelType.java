@@ -1,4 +1,4 @@
-package ro.sci.carrental.util;
+package ro.sci.carrental.domain.car;
 
 /**
  * Enum FuelType holds the fuel type constants.

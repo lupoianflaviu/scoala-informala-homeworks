@@ -1,7 +1,7 @@
 package ro.sci.carrental.repository;
 
-import ro.sci.carrental.domain.Car;
-import ro.sci.carrental.util.FuelType;
+import ro.sci.carrental.domain.car.Car;
+import ro.sci.carrental.domain.car.FuelType;
 
 import java.util.List;
 
@@ -35,6 +35,12 @@ public interface CarRepository {
      * @param car
      */
     void add(Car car);
+
+    /**
+     * Add all cars in the system.
+     * @param cars
+     */
+    void addAll(List<Car> cars);
 
     /**
      * Delete a car from the system.

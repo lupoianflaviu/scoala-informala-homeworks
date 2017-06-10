@@ -1,4 +1,4 @@
-package ro.sci.carrental.domain;
+package ro.sci.carrental.domain.customer;
 
 /**
  * Initialize customer addresses.
@@ -14,22 +14,6 @@ public class CustomerAddress {
      * Default Constructor
      */
     public CustomerAddress() {}
-
-    /**
-     * Constructor for all fields
-     * @param streetAddress Street address of customer
-     * @param city City
-     * @param county County
-     * @param country Country
-     * @param postalCode Postal Code
-     */
-    public CustomerAddress(String streetAddress, String city, String county, String country, String postalCode) {
-        this.streetAddress = streetAddress;
-        this.city = city;
-        this.county = county;
-        this.country = country;
-        this.postalCode = postalCode;
-    }
 
     public String getStreetAddress() {
         return streetAddress;

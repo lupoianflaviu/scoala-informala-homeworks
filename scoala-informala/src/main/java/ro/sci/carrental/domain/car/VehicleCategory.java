@@ -1,4 +1,4 @@
-package ro.sci.carrental.util;
+package ro.sci.carrental.domain.car;
 
 /**
  * Enum VehicleCategory holds the vehicle category constants.
