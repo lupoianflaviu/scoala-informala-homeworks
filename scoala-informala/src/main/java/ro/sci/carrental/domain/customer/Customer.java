@@ -1,6 +1,4 @@
-package ro.sci.carrental.domain;
-
-import ro.sci.carrental.util.PaymentMethod;
+package ro.sci.carrental.domain.customer;
 
 /**
  * Customer Class contains customers blueprint.

@@ -1,4 +1,4 @@
-package ro.sci.carrental.util;
+package ro.sci.carrental.domain.customer;
 
 /**
  * Enum PaymentMethod holds the payment methods constants.

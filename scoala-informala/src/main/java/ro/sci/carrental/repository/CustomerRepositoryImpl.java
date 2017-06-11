@@ -1,6 +1,6 @@
 package ro.sci.carrental.repository;
 
-import ro.sci.carrental.domain.Customer;
+import ro.sci.carrental.domain.customer.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     public void add(Customer customer) {
         customers.add(customer);
+    }
+
+    public void addAll(List<Customer> customers) {
+        customers.addAll(customers);
     }
 
     public void delete(Customer customer) {

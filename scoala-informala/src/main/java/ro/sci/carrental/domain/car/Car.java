@@ -1,7 +1,4 @@
-package ro.sci.carrental.domain;
-
-import ro.sci.carrental.util.FuelType;
-import ro.sci.carrental.util.VehicleCategory;
+package ro.sci.carrental.domain.car;
 
 /**
  * Car Class initialisation
@@ -19,44 +16,16 @@ public class Car {
     private int doors;
     private boolean ac = false;
     private boolean gps = false;
-    private boolean gearbox = false; //TRUE automatic, FALSE manual
+    private Gearbox gearbox;
     private FuelType fuelType;
     private VehicleCategory vehicleCategory;
+    private boolean reserved;
 
     /**
-     * Constructorul default
+     * Default constructor
      */
-    public Car() {}
-
-    /**
-     * Constructor for all fields
-     * @param make car make
-     * @param model car model
-     * @param size car size
-     * @param color car color
-     * @param seats no. of seats
-     * @param doors no. of doors
-     * @param ac a/c
-     * @param gps car gps
-     * @param gearbox gearbox type
-     * @param fuelType fuel type
-     * @param vehicleCategory vehicle category
-     */
-    public Car(String make, String model, float size, String color, int seats, int doors, boolean ac, boolean gps, boolean gearbox, FuelType fuelType, VehicleCategory vehicleCategory) {
-        this.make = make;
-        this.model = model;
-        this.size = size;
-        this.color = color;
-        this.seats = seats;
-        this.doors = doors;
-        this.ac = ac;
-        this.gps = gps;
-        this.gearbox = gearbox;
-        this.fuelType = fuelType;
-        this.vehicleCategory = vehicleCategory;
+    public Car() {
     }
-
-
 
     public String getMake() {
         return make;
@@ -122,14 +91,6 @@ public class Car {
         this.gps = gps;
     }
 
-    public boolean isGearbox() {
-        return gearbox;
-    }
-
-    public void setGearbox(boolean gearbox) {
-        this.gearbox = gearbox;
-    }
-
     public FuelType getFuelType() {
         return fuelType;
     }
@@ -144,5 +105,21 @@ public class Car {
 
     public void setVehicleCategory(VehicleCategory vehicleCategory) {
         this.vehicleCategory = vehicleCategory;
+    }
+
+    public Gearbox getGearbox() {
+        return gearbox;
+    }
+
+    public void setGearbox(Gearbox gearbox) {
+        this.gearbox = gearbox;
+    }
+
+    public boolean isReserved() {
+        return reserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
     }
 }
