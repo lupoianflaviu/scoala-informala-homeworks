@@ -13,7 +13,7 @@ import ro.sci.carrental.simulations.*;
  * This is the main method which makes use of SimulateCars and SimulateCustomer classes to do search queries.
  *
  * @author Flaviu Lupoian
- * @version 1.1
+ * @version 1.2
  * @since 1.8
  */
 public class Main {
