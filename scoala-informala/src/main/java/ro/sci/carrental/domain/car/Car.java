@@ -122,4 +122,42 @@ public class Car {
     public void setReserved(boolean reserved) {
         this.reserved = reserved;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Car car = (Car) o;
+
+        if (Float.compare(car.size, size) != 0) return false;
+        if (seats != car.seats) return false;
+        if (doors != car.doors) return false;
+        if (ac != car.ac) return false;
+        if (gps != car.gps) return false;
+        if (reserved != car.reserved) return false;
+        if (make != null ? !make.equals(car.make) : car.make != null) return false;
+        if (model != null ? !model.equals(car.model) : car.model != null) return false;
+        if (color != null ? !color.equals(car.color) : car.color != null) return false;
+        if (gearbox != car.gearbox) return false;
+        if (fuelType != car.fuelType) return false;
+        return vehicleCategory == car.vehicleCategory;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = make != null ? make.hashCode() : 0;
+        result = 31 * result + (model != null ? model.hashCode() : 0);
+        result = 31 * result + (size != +0.0f ? Float.floatToIntBits(size) : 0);
+        result = 31 * result + (color != null ? color.hashCode() : 0);
+        result = 31 * result + seats;
+        result = 31 * result + doors;
+        result = 31 * result + (ac ? 1 : 0);
+        result = 31 * result + (gps ? 1 : 0);
+        result = 31 * result + (gearbox != null ? gearbox.hashCode() : 0);
+        result = 31 * result + (fuelType != null ? fuelType.hashCode() : 0);
+        result = 31 * result + (vehicleCategory != null ? vehicleCategory.hashCode() : 0);
+        result = 31 * result + (reserved ? 1 : 0);
+        return result;
+    }
 }

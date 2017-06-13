@@ -34,7 +34,8 @@ public class CarRepositoryImpl implements CarRepository {
     }
 
     public void delete(Car car) {
-        cars.remove(car);
+        //safe way do delete in a List
+        cars.removeIf(anotherCar -> anotherCar.equals(car));
     }
 
     public void update(Car car) {

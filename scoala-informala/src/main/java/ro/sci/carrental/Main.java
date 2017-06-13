@@ -43,5 +43,13 @@ public class Main {
         //efectuam cautari clienti
         SimulateCustomer simulateCustomer = new SimulateCustomer();
         simulateCustomer.searches(customerRepository);
+
+        //TEMA: stergem un Car din Repository
+        carRepository.delete(mercedes);
+        System.out.println("Lista masinilor din CarRepositoryImpl este: ");
+        for (Car car : carRepository.getAll()) {
+            System.out.println(car.getMake());
+        }
+        System.out.println("_____________________________________");
     }
 }
