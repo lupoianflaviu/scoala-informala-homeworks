@@ -100,4 +100,33 @@ public class Customer {
     public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (id != customer.id) return false;
+        if (firstName != null ? !firstName.equals(customer.firstName) : customer.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(customer.lastName) : customer.lastName != null) return false;
+        if (telephone != null ? !telephone.equals(customer.telephone) : customer.telephone != null) return false;
+        if (email != null ? !email.equals(customer.email) : customer.email != null) return false;
+        if (customerAddress != null ? !customerAddress.equals(customer.customerAddress) : customer.customerAddress != null)
+            return false;
+        return paymentMethod == customer.paymentMethod;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (telephone != null ? telephone.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (customerAddress != null ? customerAddress.hashCode() : 0);
+        result = 31 * result + (paymentMethod != null ? paymentMethod.hashCode() : 0);
+        return result;
+    }
 }
