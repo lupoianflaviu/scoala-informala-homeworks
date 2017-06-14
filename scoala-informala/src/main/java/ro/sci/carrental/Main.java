@@ -13,7 +13,7 @@ import ro.sci.carrental.simulations.*;
  * This is the main method which makes use of SimulateCars and SimulateCustomer classes to do search queries.
  *
  * @author Flaviu Lupoian
- * @version 1.1
+ * @version 1.2
  * @since 1.8
  */
 public class Main {
@@ -43,5 +43,13 @@ public class Main {
         //efectuam cautari clienti
         SimulateCustomer simulateCustomer = new SimulateCustomer();
         simulateCustomer.searches(customerRepository);
+
+        //TEMA: stergem un Car din Repository
+        carRepository.delete(mercedes);
+        System.out.println("Lista masinilor din CarRepositoryImpl este: ");
+        for (Car car : carRepository.getAll()) {
+            System.out.println(car.getMake());
+        }
+        System.out.println("_____________________________________");
     }
 }
