@@ -129,4 +129,11 @@ public class Customer {
         result = 31 * result + (paymentMethod != null ? paymentMethod.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Customer " +
+                "lastName: '" + lastName + '\'' +
+                '}';
+    }
 }
