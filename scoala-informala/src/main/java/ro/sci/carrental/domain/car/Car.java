@@ -20,6 +20,7 @@ public class Car {
     private FuelType fuelType;
     private VehicleCategory vehicleCategory;
     private boolean reserved;
+    private Price rentPrice;
 
     /**
      * Default constructor
@@ -121,6 +122,14 @@ public class Car {
 
     public void setReserved(boolean reserved) {
         this.reserved = reserved;
+    }
+
+    public Price getRentPrice() {
+        return rentPrice;
+    }
+
+    public void setRentPrice(Price rentPrice) {
+        this.rentPrice = rentPrice;
     }
 
     @Override

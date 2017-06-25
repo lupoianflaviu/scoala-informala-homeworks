@@ -24,4 +24,10 @@ public class RentalCalendarImpl implements RentalCalendar{
                 customer.getLastName() + " la data si ora " + date);
         car.setReserved(false);
     }
+
+    public <T extends Car, V extends Number> double calculateRentPrice(T car, V interval) {
+
+        return car.getRentPrice().getValue() * interval.doubleValue();
+    }
+
 }

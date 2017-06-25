@@ -21,4 +21,14 @@ public interface RentalCalendar {
      * @param date date and time of return
      */
     void returnTime(Car car, Customer customer, String date);
+
+    /**
+     * Method calculateRentPrice calculates the rental price of a Car for a given number o rented days.
+     * @param t Type Car representing the rented car
+     * @param v Type Number representing Renting interval
+     * @param <T> Type Car
+     * @param <V> Type Number
+     * @return
+     */
+    <T extends Car, V extends Number>  double calculateRentPrice(T t, V v);
 }
