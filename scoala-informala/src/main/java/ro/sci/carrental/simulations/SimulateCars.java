@@ -9,11 +9,13 @@ import java.util.List;
 /**
  * Simulates car searches with different criteria.
  */
-public class SimulateCars {
+public class SimulateCars<T extends Car> {
     public void searches(CarRepositoryImpl carRepository) {
+
         System.out.println("Lista masinilor din CarRepositoryImpl este: ");
-        for (Car car : carRepository.getAll()) {
-            System.out.println(car.getMake());
+
+        for (Object car : carRepository.getAll()) {
+            System.out.println(car);
         }
         System.out.println("_____________________________________");
     }

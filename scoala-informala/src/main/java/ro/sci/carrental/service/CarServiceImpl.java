@@ -8,11 +8,10 @@ import java.util.List;
 
 /**
  * Implementation of CarService.
- *
  */
-public class CarServiceImpl implements CarService {
+public class CarServiceImpl<T extends Car, V> implements CarService<T, V> {
 
-    private CarRepositoryImpl carRepository;
+    private CarRepositoryImpl<T, V> carRepository;
 
     public CarServiceImpl(CarRepositoryImpl carRepository) {
 
@@ -26,11 +25,11 @@ public class CarServiceImpl implements CarService {
      * @return list of found cars.
      */
 
-    public List<Car> findCarsByMake(String make) {
-        List<Car> foundCars = new ArrayList<Car>();
+    public List<T> findCarsByMake(V make) {
+        List<T> foundCars = new ArrayList<>();
 
-        for (Car car : carRepository.getAll()) {
-            if (car.getMake().equalsIgnoreCase(make)) {
+        for (T car : carRepository.getAll()) {
+            if (car.getMake().equalsIgnoreCase(String.valueOf(make))) {
                 foundCars.add(car);
             }
         }
@@ -45,11 +44,12 @@ public class CarServiceImpl implements CarService {
      * @param model holds value f car model
      * @return list of found cars.
      */
-    public List<Car> findCarsByMakeAndModel(String make, String model) {
-        List<Car> foundCars = new ArrayList<Car>();
+    public List<T> findCarsByMakeAndModel(V make, V model) {
+        List<T> foundCars = new ArrayList<>();
 
-        for (Car car : carRepository.getAll()) {
-            if ((car.getModel().equalsIgnoreCase(model)) && (car.getMake().equalsIgnoreCase(make))) {
+        for (T car : carRepository.getAll()) {
+            if ((car.getModel().equalsIgnoreCase(String.valueOf(model)))
+                    && (car.getMake().equalsIgnoreCase(String.valueOf(make)))) {
                 foundCars.add(car);
             }
         }
@@ -66,12 +66,14 @@ public class CarServiceImpl implements CarService {
      * @param seats value of car seats
      * @return list of found cars
      */
-    public List<Car> findCarsByMakeModelColorAndSeats(String make, String model, String color, int seats) {
-        List<Car> foundCars = new ArrayList<Car>();
+    public List<T> findCarsByMakeModelColorAndSeats(V make, V model, V color, V seats) {
+        List<T> foundCars = new ArrayList<>();
 
-        for (Car car : carRepository.getAll()) {
-            if ((car.getModel().equalsIgnoreCase(model)) && (car.getMake().equalsIgnoreCase(make))
-                    && (car.getColor().equalsIgnoreCase(color)) && (car.getSeats() == seats)) {
+        for (T car : carRepository.getAll()) {
+            if ((car.getModel().equalsIgnoreCase(String.valueOf(model)))
+                    && (car.getMake().equalsIgnoreCase(String.valueOf(make)))
+                    && (car.getColor().equalsIgnoreCase(String.valueOf(color)))
+                    && (car.getSeats() == (Integer) seats)) {
                 foundCars.add(car);
             }
         }
@@ -79,8 +81,11 @@ public class CarServiceImpl implements CarService {
         return foundCars;
     }
 
-    public CarRepositoryImpl getCarRepository() {
+    public CarRepositoryImpl<T, V> getCarRepository() {
         return carRepository;
     }
 
+    public void setCarRepository(CarRepositoryImpl<T, V> carRepository) {
+        this.carRepository = carRepository;
+    }
 }

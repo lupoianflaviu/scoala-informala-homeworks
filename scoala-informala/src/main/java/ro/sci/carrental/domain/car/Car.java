@@ -169,4 +169,10 @@ public class Car {
         result = 31 * result + (reserved ? 1 : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Car " +
+                "make: '" + make + '\'';
+    }
 }

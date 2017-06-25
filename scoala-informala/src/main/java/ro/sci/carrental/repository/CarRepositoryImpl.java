@@ -7,24 +7,23 @@ import java.util.List;
 
 /**
  * Implementation of CarRepository.
- *
  */
-public class CarRepositoryImpl implements CarRepository {
+public class CarRepositoryImpl<T extends Car, V> implements CarRepository<T, V> {
 
-    private List<Car> cars = new ArrayList<>();
+    private List<T> cars = new ArrayList<>();
 
 
-    public List<Car> getAll() {
+    public List<T> getAll() {
         return cars;
     }
 
     @Override
-    public <T, V> List<T> getCarsByFuelType(V fuelType) {
+    public List<T> getCarsByFuelType(V fuelType) {
         List<T> seachedCars = new ArrayList<>();
 
-        for (ro.sci.carrental.domain.car.Car car: cars) {
+        for (T car : cars) {
             if (cars.contains(fuelType)) {
-                seachedCars.add((T) car);
+                seachedCars.add(car);
             }
 
         }
@@ -32,12 +31,12 @@ public class CarRepositoryImpl implements CarRepository {
         return seachedCars;
     }
 
-    public <T extends Car, V> List<T> getCarsByMake(V make) {
+    public List<T> getCarsByMake(V make) {
         List<T> seachedCars = new ArrayList<>();
 
-        for (ro.sci.carrental.domain.car.Car car: cars) {
+        for (T car : cars) {
             if (cars.contains(car.getMake())) {
-                seachedCars.add((T) car);
+                seachedCars.add(car);
             }
 
         }
@@ -46,20 +45,20 @@ public class CarRepositoryImpl implements CarRepository {
     }
 
 
-    public <T> void add(T car) {
-        cars.add((Car) car);
+    public void add(T car) {
+        cars.add(car);
     }
 
-    public <T> void addAll(List<T> cars) {
-        cars.addAll(cars);
+    public void addAll(List<T> cars) {
+        this.cars.addAll(cars);
     }
 
-    public <T> void delete(T car) {
+    public void delete(T car) {
         //safe way do delete in a List
         cars.removeIf(anotherCar -> anotherCar.equals(car));
     }
 
-    public <T> void update(T car) {
-        cars.set(cars.indexOf(car), (Car) car);
+    public void update(T car) {
+        cars.set(cars.indexOf(car), car);
     }
 }

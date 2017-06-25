@@ -37,7 +37,7 @@ public class Main {
        customerRepository.add(customer2);
 
         //efectuam cautari masini
-        SimulateCars simulateCars = new SimulateCars();
+        SimulateCars<Car> simulateCars = new SimulateCars<>();
         simulateCars.searches(carRepository);
 
         //efectuam cautari clienti
@@ -47,8 +47,8 @@ public class Main {
         //TEMA: stergem un Car din Repository
         carRepository.delete(mercedes);
         System.out.println("Lista masinilor din CarRepositoryImpl este: ");
-        for (Car car : carRepository.getAll()) {
-            System.out.println(car.getMake());
+        for (Object car : carRepository.getAll()) {
+            System.out.println(car);
         }
         System.out.println("_____________________________________");
     }
