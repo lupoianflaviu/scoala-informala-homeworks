@@ -14,45 +14,45 @@ public interface CarRepository {
      * Get all cars in the system
      * @return List<Car>
      */
-    List<Car> getAll();
+    <T> List<T> getAll();
 
     /**
      * Return all the cars of a certain maker
-     * @param make
+     * @param v
      * @return List<Car>
      */
-    List<Car> getCarsByMake(String make);
+    <T extends Car, V> List<T> getCarsByMake(V v);
 
     /**
      * Return all cars by fuel type
-     * @param fuelType
+     * @param v
      * @return List<Car>
      */
-    List<Car> getCarsByFuelType(FuelType fuelType);
+    <T, V> List<T> getCarsByFuelType(V v);
 
     /**
      * Add a car in the system.
-     * @param car
+     * @param t
      */
-    void add(Car car);
+    <T> void add(T t);
 
     /**
      * Add all cars in the system.
-     * @param cars
+     * @param t
      */
-    void addAll(List<Car> cars);
+    <T> void addAll(List<T> t);
 
     /**
      * Delete a car from the system.
-     * @param car
+     * @param t
      */
-    void delete(Car car);
+    <T> void delete(T t);
 
     /**
      * Updates car information in the system.
-     * @param car
+     * @param t
      */
-    void update(Car car);
+    <T> void update(T t);
 
 
 }

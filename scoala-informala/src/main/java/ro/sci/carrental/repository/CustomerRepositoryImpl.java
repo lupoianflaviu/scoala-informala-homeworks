@@ -37,7 +37,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     public void delete(Customer customer) {
-        customers.remove(customer);
+        customers.removeIf(anotherCustomer -> anotherCustomer.equals(customer));
     }
 
     public void update(Customer customer) {
