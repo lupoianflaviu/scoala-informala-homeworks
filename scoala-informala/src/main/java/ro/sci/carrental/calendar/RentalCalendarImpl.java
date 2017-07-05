@@ -6,10 +6,8 @@ import ro.sci.carrental.domain.customer.Customer;
 
 /**
  * Implementation of calendar Interface
- *
  */
-public class RentalCalendarImpl implements RentalCalendar{
-
+public class RentalCalendarImpl implements RentalCalendar {
 
 
     public void pickupTime(Car car, Customer customer, String date) {
@@ -27,7 +25,15 @@ public class RentalCalendarImpl implements RentalCalendar{
 
     public <T extends Car, V extends Number> double calculateRentPrice(T car, V interval) {
 
-        return car.getRentPrice().getValue() * interval.doubleValue();
+        if (checkIfNotNull(car, interval)) {
+            return car.getRentPrice().getValue() * interval.doubleValue();
+        }
+
+        return -1;
+    }
+
+    private <T extends Car, V extends Number> boolean checkIfNotNull(T car, V interval) {
+        return car != null && car.getRentPrice() != null && interval != null;
     }
 
 }

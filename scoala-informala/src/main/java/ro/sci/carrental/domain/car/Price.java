@@ -10,6 +10,10 @@ public class Price {
     public Price() {
     }
 
+    public Price(double value) {
+        this.value = value;
+    }
+
     public double getValue() {
         return value;
     }

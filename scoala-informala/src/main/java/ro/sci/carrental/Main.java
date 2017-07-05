@@ -1,6 +1,8 @@
 package ro.sci.carrental;
 
+import ro.sci.carrental.calendar.RentalCalendarImpl;
 import ro.sci.carrental.domain.car.Car;
+import ro.sci.carrental.domain.car.Price;
 import ro.sci.carrental.domain.customer.Customer;
 import ro.sci.carrental.repository.*;
 import ro.sci.carrental.simulations.*;
@@ -20,6 +22,7 @@ public class Main {
     public static void main(String[] args) {
        Car mercedes = new Car();
        mercedes.setMake("Mercedes");
+       mercedes.setRentPrice(new Price(65.00));
        Car bmw = new Car();
        bmw.setMake("Bmw");
 
@@ -51,5 +54,8 @@ public class Main {
             System.out.println(car);
         }
         System.out.println("_____________________________________");
+
+        RentalCalendarImpl rent = new RentalCalendarImpl();
+        System.out.println(rent.calculateRentPrice(mercedes, 4));
     }
 }
