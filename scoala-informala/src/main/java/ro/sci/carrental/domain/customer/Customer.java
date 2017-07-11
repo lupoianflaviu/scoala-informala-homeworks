@@ -133,7 +133,6 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer " +
-                "lastName: '" + lastName + '\'' +
-                '}';
+                "lastName: '" + lastName + '\'';
     }
 }

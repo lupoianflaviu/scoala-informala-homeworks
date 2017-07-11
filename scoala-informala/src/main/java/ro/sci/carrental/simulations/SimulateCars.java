@@ -5,18 +5,15 @@ import ro.sci.carrental.repository.CarRepositoryImpl;
 import ro.sci.carrental.service.CarServiceImpl;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Simulates car searches with different criteria.
  */
 public class SimulateCars<T extends Car> {
     public void searches(CarRepositoryImpl carRepository) {
-
-        System.out.println("Lista masinilor din CarRepositoryImpl este: ");
-
-        for (Object car : carRepository.getAll()) {
-            System.out.println(car);
-        }
-        System.out.println("_____________________________________");
+        final Logger LOGGER = Logger.getLogger("RentingSimulation");
+        LOGGER.log(Level.INFO, "Lista initiala a masinilor din CarRepositoryImpl este: {0}\n", carRepository.getAll());
     }
 }

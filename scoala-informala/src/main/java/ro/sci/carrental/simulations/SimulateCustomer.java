@@ -5,17 +5,15 @@ import ro.sci.carrental.repository.CustomerRepositoryImpl;
 import ro.sci.carrental.service.CustomerServiceImpl;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Simulates customer searches with different criteria.
  */
 public class SimulateCustomer {
     public void searches(CustomerRepositoryImpl customerRepository) {
-        //cautarea tuturor clientilor
-        System.out.println("Lista clientilor din sistem este: ");
-        for (Customer customer : customerRepository.getAll()) {
-            System.out.println(customer.getLastName());
-        }
-        System.out.println("_____________________________________");
+        final Logger LOGGER = Logger.getLogger("RentingSimulation");
+        LOGGER.log(Level.INFO, "Lista clientilor din sistem este: {0}\n", customerRepository.getAll());
     }
 }

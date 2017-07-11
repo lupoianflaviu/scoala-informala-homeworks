@@ -24,16 +24,17 @@ public class RentalCalendarImpl implements RentalCalendar {
     }
 
     public <T extends Car, V extends Number> double calculateRentPrice(T car, V interval) {
+        double result = 0;
 
-        if (checkIfNotNull(car, interval)) {
-            return car.getRentPrice().getValue() * interval.doubleValue();
+        try {
+            result = car.getRentPrice().getValue() * interval.doubleValue();
+
+            return result;
+        } catch (NullPointerException e) {
+            System.err.println("Check for null " + e.getMessage());
+            result = -1;
+
+            return result;
         }
-
-        return -1;
     }
-
-    private <T extends Car, V extends Number> boolean checkIfNotNull(T car, V interval) {
-        return car != null && car.getRentPrice() != null && interval != null;
-    }
-
 }

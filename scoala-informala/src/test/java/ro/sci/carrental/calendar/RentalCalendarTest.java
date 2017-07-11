@@ -9,7 +9,8 @@ import static org.junit.Assert.*;
 /**
  * Created by CCA on 05/07/2017.
  */
-public class RentalCalendarImplTest {
+public class RentalCalendarTest {
+
     @Test
     public void testCalculateRentPrice() {
         Car audi = new Car();
