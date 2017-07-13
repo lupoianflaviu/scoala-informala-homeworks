@@ -1,6 +1,7 @@
 package ro.sci.carrental.repository;
 
 import ro.sci.carrental.domain.car.Car;
+import ro.sci.carrental.domain.car.FuelType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,20 +9,20 @@ import java.util.List;
 /**
  * Implementation of CarRepository.
  */
-public class CarRepositoryImpl<T extends Car, V> implements CarRepository<T, V> {
+public class CarRepositoryImpl<T extends Car, V> implements CarRepository<Car, String> {
 
-    private List<T> cars = new ArrayList<>();
+    private List<Car> cars = new ArrayList<>();
 
 
-    public List<T> getAll() {
+    public List<Car> getAll() {
         return cars;
     }
 
     @Override
-    public List<T> getCarsByFuelType(V fuelType) {
-        List<T> seachedCars = new ArrayList<>();
+    public List<Car> getCarsByFuelType(String fuelType) {
+        List<Car> seachedCars = new ArrayList<>();
 
-        for (T car : cars) {
+        for (Car car : cars) {
             if (cars.contains(fuelType)) {
                 seachedCars.add(car);
             }
@@ -31,10 +32,10 @@ public class CarRepositoryImpl<T extends Car, V> implements CarRepository<T, V> 
         return seachedCars;
     }
 
-    public List<T> getCarsByMake(V make) {
-        List<T> seachedCars = new ArrayList<>();
+    public List<Car> getCarsByMake(String make) {
+        List<Car> seachedCars = new ArrayList<>();
 
-        for (T car : cars) {
+        for (Car car : cars) {
             if (cars.contains(car.getMake())) {
                 seachedCars.add(car);
             }
@@ -45,20 +46,19 @@ public class CarRepositoryImpl<T extends Car, V> implements CarRepository<T, V> 
     }
 
 
-    public void add(T car) {
+    public void add(Car car) {
         cars.add(car);
     }
 
-    public void addAll(List<T> cars) {
+    public void addAll(List<Car> cars) {
         this.cars.addAll(cars);
     }
 
-    public void delete(T car) {
-        //safe way do delete in a List
+    public void delete(Car car) {
         cars.removeIf(anotherCar -> anotherCar.equals(car));
     }
 
-    public void update(T car) {
+    public void update(Car car) {
         cars.set(cars.indexOf(car), car);
     }
 }

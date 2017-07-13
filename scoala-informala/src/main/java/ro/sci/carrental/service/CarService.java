@@ -6,6 +6,13 @@ import java.util.List;
  * Service Interface for Car.
  */
 public interface CarService<T, V> {
+
+    void add(T t);
+
+    void delete(T t);
+
+    void update(T t);
+
     /**
      * Find same make cars in system.
      * @param v Car make

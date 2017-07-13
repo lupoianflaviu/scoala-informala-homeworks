@@ -60,7 +60,7 @@ public class Main {
             LOGGER.log(Level.INFO, "Lista masinilor din CarRepositoryImpl este: {0}\n", carRepository.getAll());
         }
 
-        RentalCalendarImpl rent = new RentalCalendarImpl();
+        RentalCalendarImpl rent = new RentalCalendarImpl(14,21);
         LOGGER.log(Level.INFO, "Calculeaza renting price pentru car : {0} \n",
                 rent.calculateRentPrice(mercedes, 4));
     }
