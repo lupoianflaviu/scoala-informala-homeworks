@@ -45,10 +45,6 @@ public class Customer {
         return firstName;
     }
 
-    /**
-     *
-     * @param firstName
-     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
