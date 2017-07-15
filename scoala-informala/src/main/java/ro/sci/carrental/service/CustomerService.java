@@ -8,6 +8,22 @@ import java.util.List;
  * Service interface for customer.
  */
 public interface CustomerService {
+
+    /**
+     * Add Customer in Customer Repository
+     */
+    void add(Customer customer);
+
+    /**
+     * Delete Customer in Customer Repository
+     */
+    void delete(Customer customer);
+
+    /**
+     * Update Customer in Customer Repository
+     */
+    void update(Customer customer);
+
     /**
      * Find customers by last name.
      * @param lastName

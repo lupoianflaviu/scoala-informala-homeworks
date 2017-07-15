@@ -1,6 +1,7 @@
 package ro.sci.carrental.service;
 
 import ro.sci.carrental.domain.car.Car;
+import ro.sci.carrental.repository.CarRepository;
 import ro.sci.carrental.repository.CarRepositoryImpl;
 
 import java.util.ArrayList;
@@ -11,9 +12,9 @@ import java.util.List;
  */
 public class CarServiceImpl<T extends Car, V> implements CarService<Car, String> {
 
-    private CarRepositoryImpl<Car, String> carRepository;
+    private CarRepository<Car, String> carRepository;
 
-    public CarServiceImpl(CarRepositoryImpl carRepository) {
+    public CarServiceImpl(CarRepository carRepository) {
 
         this.carRepository = carRepository;
     }
@@ -96,7 +97,7 @@ public class CarServiceImpl<T extends Car, V> implements CarService<Car, String>
         return foundCars;
     }
 
-    public CarRepositoryImpl<Car, String> getCarRepository() {
+    public CarRepository<Car, String> getCarRepository() {
         return carRepository;
     }
 

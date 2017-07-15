@@ -4,8 +4,14 @@ import ro.sci.carrental.calendar.RentalCalendarImpl;
 import ro.sci.carrental.domain.car.Car;
 import ro.sci.carrental.domain.car.Price;
 import ro.sci.carrental.domain.customer.Customer;
+import ro.sci.carrental.repository.CarRepository;
 import ro.sci.carrental.repository.CarRepositoryImpl;
+import ro.sci.carrental.repository.CustomerRepository;
 import ro.sci.carrental.repository.CustomerRepositoryImpl;
+import ro.sci.carrental.service.CarService;
+import ro.sci.carrental.service.CarServiceImpl;
+import ro.sci.carrental.service.CustomerService;
+import ro.sci.carrental.service.CustomerServiceImpl;
 import ro.sci.carrental.simulations.SimulateCars;
 import ro.sci.carrental.simulations.SimulateCustomer;
 
@@ -33,16 +39,18 @@ public class Main {
         Car bmw = new Car();
         bmw.setMake("Bmw");
 
-        CarRepositoryImpl carRepository = new CarRepositoryImpl();
-        carRepository.add(mercedes);
-        carRepository.add(bmw);
+        CarRepository carRepository = new CarRepositoryImpl();
+        CarService carService = new CarServiceImpl(carRepository);
+        carService.add(mercedes);
+        carService.add(bmw);
 
         Customer customer1 = new Customer();
         customer1.setLastName("Cretu");
         Customer customer2 = new Customer();
         customer2.setLastName("Florea");
 
-        CustomerRepositoryImpl customerRepository = new CustomerRepositoryImpl();
+        CustomerRepository customerRepository = new CustomerRepositoryImpl();
+        CustomerService customerService = new CustomerServiceImpl(customerRepository);
         customerRepository.add(customer1);
         customerRepository.add(customer2);
 
