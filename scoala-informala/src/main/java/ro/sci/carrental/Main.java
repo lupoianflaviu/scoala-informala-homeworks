@@ -30,8 +30,9 @@ import java.util.logging.Logger;
  * @since 1.8
  */
 public class Main {
+    private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
+
     public static void main(String[] args) {
-        final Logger LOGGER = Logger.getLogger("RentingSimulation");
 
         Car mercedes = new Car();
         mercedes.setMake("Mercedes");
@@ -39,8 +40,8 @@ public class Main {
         Car bmw = new Car();
         bmw.setMake("Bmw");
 
-        CarRepository carRepository = new CarRepositoryImpl();
-        CarService carService = new CarServiceImpl(carRepository);
+        CarRepository<Car, String> carRepository = new CarRepositoryImpl<>();
+        CarService<Car, String> carService = new CarServiceImpl<>(carRepository);
         carService.add(mercedes);
         carService.add(bmw);
 
@@ -49,8 +50,8 @@ public class Main {
         Customer customer2 = new Customer();
         customer2.setLastName("Florea");
 
-        CustomerRepository customerRepository = new CustomerRepositoryImpl();
-        CustomerService customerService = new CustomerServiceImpl(customerRepository);
+        CustomerRepository<Customer, String> customerRepository = new CustomerRepositoryImpl<>();
+        CustomerService<Customer, String> customerService = new CustomerServiceImpl<>(customerRepository);
         customerRepository.add(customer1);
         customerRepository.add(customer2);
 
@@ -68,7 +69,7 @@ public class Main {
             LOGGER.log(Level.INFO, "Lista masinilor din CarRepositoryImpl este: {0}\n", carRepository.getAll());
         }
 
-        RentalCalendarImpl rent = new RentalCalendarImpl(14,21);
+        RentalCalendarImpl<Car, Number> rent = new RentalCalendarImpl<>(14,21);
         LOGGER.log(Level.INFO, "Calculeaza renting price pentru car : {0} \n",
                 rent.calculateRentPrice(mercedes, 4));
     }

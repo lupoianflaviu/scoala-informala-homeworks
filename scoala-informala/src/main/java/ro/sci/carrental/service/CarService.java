@@ -7,10 +7,22 @@ import java.util.List;
  */
 public interface CarService<T, V> {
 
+    /**
+     * Add to repository
+     * @param t generic type
+     */
     void add(T t);
 
+    /**
+     * Delete from repository
+     * @param t generic type
+     */
     void delete(T t);
 
+    /**
+     * Update element in repository
+     * @param t generic type
+     */
     void update(T t);
 
     /**

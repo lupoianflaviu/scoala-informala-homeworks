@@ -18,7 +18,7 @@ public class RentalCalendarImpl<T extends Car, V extends Number> implements Rent
     }
 
     public double calculateRentPrice(Car car, Integer interval) {
-        double result = 0;
+        double result;
         interval = this.interval;
 
         try {

@@ -1,53 +1,51 @@
 package ro.sci.carrental.repository;
 
-import ro.sci.carrental.domain.customer.Customer;
-
 import java.util.List;
 
 /**
  * Repository interface for Customer, this will help managing all persistence operations related to Customer.
  */
-public interface CustomerRepository {
+public interface CustomerRepository<T, V> {
     /**
      * Get all Customers in the system.
-     * @return List<Customer>
+     * @return List<T>
      */
-    List<Customer> getAll();
+    List<T> getAll();
     /**
      * Get Customers by LastName.
      * @return List<Customer>
      */
-    List<Customer> getCustomerByLastName(String lastName);
+    List<T> getCustomerByLastName(V lastName);
     /**
      * Get Customers by Full Name.
-     * @return List<Customer>
+     * @return List<T>
      */
-    List<Customer> getCustomerByFullName(String firstName, String lastName);
+    List<T> getCustomerByFullName(V firstName, V lastName);
     /**
      * Get Customers by Telephone number.
-     * @return List<Customer>
+     * @return List<T>
      */
-    List<Customer> getCustomerByTelephone(String telephone);
+    List<T> getCustomerByTelephone(V telephone);
 
     /**
      * Add a customer in the system.
      */
-    void add(Customer customer);
+    void add(T customer);
 
     /**
      * Add all customers in the system.
      */
-    void addAll(List<Customer> customers);
+    void addAll(List<T> customers);
 
     /**
      * Delete a customer from the system.
      */
-    void delete(Customer customer);
+    void delete(T customer);
 
     /**
      * Update a customer details.
      */
-    void update(Customer customer);
+    void update(T customer);
 
 
 }

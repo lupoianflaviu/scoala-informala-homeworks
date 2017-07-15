@@ -1,35 +1,33 @@
 package ro.sci.carrental.service;
 
-import ro.sci.carrental.domain.customer.Customer;
-
 import java.util.List;
 
 /**
  * Service interface for customer.
  */
-public interface CustomerService {
+public interface CustomerService<T, V> {
 
     /**
      * Add Customer in Customer Repository
      */
-    void add(Customer customer);
+    void add(T customer);
 
     /**
      * Delete Customer in Customer Repository
      */
-    void delete(Customer customer);
+    void delete(T customer);
 
     /**
      * Update Customer in Customer Repository
      */
-    void update(Customer customer);
+    void update(T customer);
 
     /**
      * Find customers by last name.
      * @param lastName
      * @return
      */
-    List<Customer> findCustomerByLastName(String lastName);
+    List<T> findCustomerByLastName(V lastName);
 
     /**
      * Find customers by full name.
@@ -37,12 +35,12 @@ public interface CustomerService {
      * @param lastName
      * @return
      */
-    List<Customer> findCustomerByFullName(String firstName, String lastName);
+    List<T> findCustomerByFullName(V firstName, V lastName);
 
     /**
      * Find customers by telephone.
      * @param telephone
      * @return
      */
-    List<Customer> findCustomerByTelephone(String telephone);
+    List<T> findCustomerByTelephone(V telephone);
 }

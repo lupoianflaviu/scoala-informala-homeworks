@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Implementation of CustomerService.
  */
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerServiceImpl<T extends Customer, V> implements CustomerService<Customer, String> {
 
-    private CustomerRepository customerRepository;
+    private CustomerRepository<Customer, String> customerRepository;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository<Customer, String> customerRepository) {
         this.customerRepository = customerRepository;
     }
 
@@ -35,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> findCustomerByLastName(String lastName) {
 
-        List<Customer> foundCustomers = new ArrayList<Customer>();
+        List<Customer> foundCustomers = new ArrayList<>();
 
         for (Customer customer : customerRepository.getAll()) {
             if (customer.getLastName().equalsIgnoreCase(lastName)) {
@@ -48,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> findCustomerByFullName(String firstName, String lastName) {
-        List<Customer> foundCustomers = new ArrayList<Customer>();
+        List<Customer> foundCustomers = new ArrayList<>();
 
         for (Customer customer : customerRepository.getAll()) {
             if ((customer.getFirstName().equalsIgnoreCase(firstName))
@@ -62,7 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> findCustomerByTelephone(String telephone) {
-        List<Customer> foundCustomers = new ArrayList<Customer>();
+        List<Customer> foundCustomers = new ArrayList<>();
 
         for (Customer customer : customerRepository.getAll()) {
             if ((customer.getTelephone().equalsIgnoreCase(telephone))) {
