@@ -12,6 +12,6 @@ public class SimulateCustomer {
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
 
     public void searches(CustomerRepository customerRepository) {
-        LOGGER.log(Level.INFO, "Lista clientilor din sistem este: {0}\n", customerRepository.getAll());
+        LOGGER.log(Level.INFO, "\nLista clientilor din sistem este: {0}\n", customerRepository.getAll());
     }
 }

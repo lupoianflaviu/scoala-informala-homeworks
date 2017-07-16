@@ -29,4 +29,10 @@ public class Price {
     public void setFormattedValue(String formattedValue) {
         this.formattedValue = formattedValue;
     }
+
+    @Override
+    public String toString() {
+        return "Price: " +
+                "value=" + value + " EUR ";
+    }
 }

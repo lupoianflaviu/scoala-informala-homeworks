@@ -13,7 +13,7 @@ public class CustomerConvertor implements Convertor<Customer> {
     public Customer convert(String convertedString) throws InvalidEntityException {
         String[] tokens = convertedString.split(",");
 
-        if (tokens.length != 6) {
+        if (tokens.length != 8) {
             throw new InvalidEntityException("Invalid Customer Description");
         }
 

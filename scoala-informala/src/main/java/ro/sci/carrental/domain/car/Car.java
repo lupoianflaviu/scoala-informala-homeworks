@@ -172,7 +172,18 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car " +
-                "make: '" + make + '\'';
+        return "\nMake='" + make + '\'' +
+                ", Model='" + model + '\'' +
+                ", size=" + size +
+                ", color='" + color + '\'' +
+                ", seats=" + seats +
+                ", doors=" + doors +
+                ", ac=" + ac +
+                ", gps=" + gps +
+                ", gearbox=" + gearbox +
+                ", fuelType=" + fuelType +
+                ", vehicleCategory=" + vehicleCategory +
+                ", reserved=" + reserved +
+                ", rentPrice=" + rentPrice;
     }
 }
