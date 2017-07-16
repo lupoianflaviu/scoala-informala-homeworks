@@ -21,26 +21,6 @@ public class Customer {
      */
     public Customer() {}
 
-    /**
-     * Constructor for all fields
-     * @param id id
-     * @param firstName First Name
-     * @param lastName Last Name
-     * @param telephone Telephone No.
-     * @param email email address
-     * @param customerAddress Customer address
-     * @param paymentMethod Payment method
-     */
-    public Customer(int id, String firstName, String lastName, String telephone, String email, CustomerAddress customerAddress, PaymentMethod paymentMethod) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.telephone = telephone;
-        this.email = email;
-        this.customerAddress = customerAddress;
-        this.paymentMethod = paymentMethod;
-    }
-
     public String getFirstName() {
         return firstName;
     }

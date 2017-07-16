@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Repository interface for Car, this will help managing all persistence operations related to Car.
  */
-public interface CarRepository<T extends Car> {
+public interface CarRepository<T extends Car>  extends Repository<T>{
     /**
      * Get all cars in the system
      *

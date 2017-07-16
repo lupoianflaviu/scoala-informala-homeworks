@@ -44,11 +44,12 @@ public class CarRepositoryImpl implements CarRepository<Car> {
         return seachedCars;
     }
 
-
+    @Override
     public void add(Car car) {
         cars.add(car);
     }
 
+    @Override
     public void addAll(List<Car> cars) {
         this.cars.addAll(cars);
     }
