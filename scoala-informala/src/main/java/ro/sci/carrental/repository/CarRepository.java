@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Repository interface for Car, this will help managing all persistence operations related to Car.
  */
-public interface CarRepository<T extends Car, V extends String> {
+public interface CarRepository<T extends Car> {
     /**
      * Get all cars in the system
      *
@@ -21,7 +21,7 @@ public interface CarRepository<T extends Car, V extends String> {
      * @param v
      * @return List<Car>
      */
-    List<T> getCarsByMake(V v);
+    List<T> getCarsByMake(String v);
 
     /**
      * Return all cars by fuel type
@@ -29,7 +29,7 @@ public interface CarRepository<T extends Car, V extends String> {
      * @param v
      * @return List<Car>
      */
-    List<T> getCarsByFuelType(V v);
+    List<T> getCarsByFuelType(String v);
 
     /**
      * Add a car in the system.

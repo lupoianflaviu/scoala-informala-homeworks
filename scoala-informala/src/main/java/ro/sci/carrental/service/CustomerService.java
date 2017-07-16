@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Service interface for customer.
  */
-public interface CustomerService<T, V> {
+public interface CustomerService<T> {
 
     /**
      * Add Customer in Customer Repository
@@ -27,7 +27,7 @@ public interface CustomerService<T, V> {
      * @param lastName
      * @return
      */
-    List<T> findCustomerByLastName(V lastName);
+    List<T> findCustomerByLastName(String lastName);
 
     /**
      * Find customers by full name.
@@ -35,12 +35,12 @@ public interface CustomerService<T, V> {
      * @param lastName
      * @return
      */
-    List<T> findCustomerByFullName(V firstName, V lastName);
+    List<T> findCustomerByFullName(String firstName, String lastName);
 
     /**
      * Find customers by telephone.
      * @param telephone
      * @return
      */
-    List<T> findCustomerByTelephone(V telephone);
+    List<T> findCustomerByTelephone(String telephone);
 }

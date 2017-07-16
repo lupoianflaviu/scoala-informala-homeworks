@@ -1,12 +1,14 @@
 package ro.sci.carrental.repository;
 
+import ro.sci.carrental.domain.customer.Customer;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation of Customer Repository.
  */
-public class CustomerRepositoryImpl<Customer, String> implements CustomerRepository<Customer, String> {
+public class CustomerRepositoryImpl implements CustomerRepository<Customer> {
 
     private List<Customer> customers = new ArrayList<Customer>();
 

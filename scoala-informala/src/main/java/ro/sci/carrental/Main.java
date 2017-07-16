@@ -41,8 +41,8 @@ public class Main {
         Car bmw = new Car();
         bmw.setMake("Bmw");
 
-        CarRepository<Car, String> carRepository = new CarRepositoryImpl<>();
-        CarService<Car, String> carService = new CarServiceImpl<>(carRepository);
+        CarRepository<Car> carRepository = new CarRepositoryImpl();
+        CarService<Car> carService = new CarServiceImpl(carRepository);
         carService.add(mercedes);
         carService.add(bmw);
 
@@ -51,8 +51,8 @@ public class Main {
         Customer customer2 = new Customer();
         customer2.setLastName("Florea");
 
-        CustomerRepository<Customer, String> customerRepository = new CustomerRepositoryImpl<>();
-        CustomerService<Customer, String> customerService = new CustomerServiceImpl<>(customerRepository);
+        CustomerRepository<Customer> customerRepository = new CustomerRepositoryImpl();
+        CustomerService<Customer> customerService = new CustomerServiceImpl(customerRepository);
         customerRepository.add(customer1);
         customerRepository.add(customer2);
 

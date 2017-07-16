@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * Implementation of CarService.
  */
-public class CarServiceImpl<T extends Car, V> implements CarService<Car, String> {
+public class CarServiceImpl implements CarService<Car> {
 
-    private CarRepository<Car, String> carRepository;
+    private CarRepository<Car> carRepository;
 
     public CarServiceImpl(CarRepository carRepository) {
 
@@ -96,11 +96,11 @@ public class CarServiceImpl<T extends Car, V> implements CarService<Car, String>
         return foundCars;
     }
 
-    public CarRepository<Car, String> getCarRepository() {
+    public CarRepository<Car> getCarRepository() {
         return carRepository;
     }
 
-    public void setCarRepository(CarRepository<Car, String> carRepository) {
+    public void setCarRepository(CarRepository<Car> carRepository) {
         this.carRepository = carRepository;
     }
 }

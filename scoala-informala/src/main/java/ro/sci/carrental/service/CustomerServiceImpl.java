@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Implementation of CustomerService.
  */
-public class CustomerServiceImpl<T extends Customer, V> implements CustomerService<Customer, String> {
+public class CustomerServiceImpl implements CustomerService<Customer> {
 
-    private CustomerRepository<Customer, String> customerRepository;
+    private CustomerRepository<Customer> customerRepository;
 
-    public CustomerServiceImpl(CustomerRepository<Customer, String> customerRepository) {
+    public CustomerServiceImpl(CustomerRepository<Customer> customerRepository) {
         this.customerRepository = customerRepository;
     }
 
