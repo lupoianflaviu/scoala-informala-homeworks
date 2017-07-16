@@ -1,11 +1,13 @@
 package ro.sci.carrental.repository;
 
+import ro.sci.carrental.domain.car.Car;
+
 import java.util.List;
 
 /**
  * Repository interface for Car, this will help managing all persistence operations related to Car.
  */
-public interface CarRepository<T, V> {
+public interface CarRepository<T extends Car, V extends String> {
     /**
      * Get all cars in the system
      *

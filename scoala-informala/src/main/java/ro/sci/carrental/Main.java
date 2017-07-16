@@ -1,5 +1,6 @@
 package ro.sci.carrental;
 
+import ro.sci.carrental.calendar.RentalCalendar;
 import ro.sci.carrental.calendar.RentalCalendarImpl;
 import ro.sci.carrental.domain.car.Car;
 import ro.sci.carrental.domain.car.Price;
@@ -69,7 +70,7 @@ public class Main {
             LOGGER.log(Level.INFO, "Lista masinilor din CarRepositoryImpl este: {0}\n", carRepository.getAll());
         }
 
-        RentalCalendarImpl<Car, Number> rent = new RentalCalendarImpl<>(14,21);
+        RentalCalendar<Car, Integer> rent = new RentalCalendarImpl<Car, Integer>(14,21);
         LOGGER.log(Level.INFO, "Calculeaza renting price pentru car : {0} \n",
                 rent.calculateRentPrice(mercedes, 4));
     }

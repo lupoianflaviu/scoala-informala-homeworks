@@ -6,7 +6,7 @@ import ro.sci.carrental.domain.car.Car;
 /**
  * Implementation of calendar Interface
  */
-public class RentalCalendarImpl<T extends Car, V extends Number> implements RentalCalendar<Car, Integer> {
+public class RentalCalendarImpl<T extends Car, V> implements RentalCalendar<Car, Integer> {
     private Integer pickupTime;
     private Integer returnTime;
     private Integer interval;
