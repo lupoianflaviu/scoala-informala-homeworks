@@ -32,4 +32,11 @@ public class CustomerAddress {
     public void setCity(String city) {
         this.city = city;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append(streetAddress).append(",").append(city);
+        return result.toString();
+    }
 }

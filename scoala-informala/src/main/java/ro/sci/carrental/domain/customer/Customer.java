@@ -19,7 +19,8 @@ public class Customer {
     /**
      * Default Constructor
      */
-    public Customer() {}
+    public Customer() {
+    }
 
     public String getFirstName() {
         return firstName;
@@ -108,12 +109,10 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "\nid=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", email='" + email + '\'' +
-                ", customerAddress=" + customerAddress +
-                ", paymentMethod=" + paymentMethod;
+        StringBuilder result = new StringBuilder();
+        result.append(id).append(",").append(firstName).append(",").append(lastName).append(",")
+                .append(telephone).append(",").append(email).append(",").append(customerAddress).append(",")
+                .append(paymentMethod);
+        return result.toString();
     }
 }

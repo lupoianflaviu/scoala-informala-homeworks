@@ -1,7 +1,7 @@
 package ro.sci.carrental.reader;
 
 /**
- * Created by CCA on 15/07/2017.
+ * Generic interface for string to object conversion
  */
 public interface Convertor<T> {
 

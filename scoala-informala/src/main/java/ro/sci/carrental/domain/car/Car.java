@@ -172,18 +172,11 @@ public class Car {
 
     @Override
     public String toString() {
-        return "\nMake='" + make + '\'' +
-                ", Model='" + model + '\'' +
-                ", size=" + size +
-                ", color='" + color + '\'' +
-                ", seats=" + seats +
-                ", doors=" + doors +
-                ", ac=" + ac +
-                ", gps=" + gps +
-                ", gearbox=" + gearbox +
-                ", fuelType=" + fuelType +
-                ", vehicleCategory=" + vehicleCategory +
-                ", reserved=" + reserved +
-                ", rentPrice=" + rentPrice;
+        StringBuilder result = new StringBuilder();
+        result.append(make).append(",").append(model).append(",").append(size).append(",")
+                .append(color).append(",").append(seats).append(",").append(doors).append(",").append(ac).append(",")
+                .append(gps).append(",").append(gearbox).append(",").append(fuelType).append(",").append(vehicleCategory)
+                .append(",").append(reserved).append(",").append(rentPrice);
+        return result.toString();
     }
 }

@@ -13,10 +13,11 @@ import ro.sci.carrental.service.CustomerService;
 import ro.sci.carrental.service.CustomerServiceImpl;
 import ro.sci.carrental.simulations.SimulateCars;
 import ro.sci.carrental.simulations.SimulateCustomer;
+import ro.sci.carrental.writer.CarWriter;
+import ro.sci.carrental.writer.CustomerWriter;
 
 import java.io.File;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * <h1>RentACar Model</h1>
@@ -61,5 +62,13 @@ public class Main {
         //efectuam cautari clienti
         SimulateCustomer simulateCustomer = new SimulateCustomer();
         simulateCustomer.searches(customerRepository);
+
+        File outCars = new File("outcars.txt");
+        CarWriter carWriter = new CarWriter();
+        carWriter.writeObjects(carRepository.getAll(), outCars);
+
+        File outCustomers = new File("outcustomers.txt");
+        CustomerWriter customerWriter = new CustomerWriter();
+        customerWriter.writeObjects(customerRepository.getAll(), outCustomers);
     }
 }

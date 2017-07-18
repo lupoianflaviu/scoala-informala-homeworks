@@ -4,9 +4,6 @@ import ro.sci.carrental.domain.customer.Customer;
 import ro.sci.carrental.domain.customer.CustomerAddress;
 import ro.sci.carrental.domain.customer.PaymentMethod;
 
-/**
- * Created by CCA on 15/07/2017.
- */
 public class CustomerConvertor implements Convertor<Customer> {
 
     @Override

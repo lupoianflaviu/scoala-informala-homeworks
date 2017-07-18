@@ -2,9 +2,6 @@ package ro.sci.carrental.reader;
 
 import ro.sci.carrental.domain.car.*;
 
-/**
- * Created by CCA on 15/07/2017.
- */
 public class CarConvertor implements Convertor<Car> {
 
     @Override

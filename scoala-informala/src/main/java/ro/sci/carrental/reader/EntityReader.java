@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by CCA on 15/07/2017.
+ * Object reader
  */
 public class EntityReader {
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
@@ -26,8 +26,7 @@ public class EntityReader {
                 listInputCars.add(line);
             }
         } catch (IOException e) {
-            LOGGER.log(Level.WARNING, "IO exception found!");
-            System.err.println("IOException:" + e);
+            LOGGER.log(Level.WARNING, "IO exception found!" + e);
         }
         return listInputCars;
     }
