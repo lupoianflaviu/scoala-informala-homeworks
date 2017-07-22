@@ -13,6 +13,7 @@ public class SimulateCars<T extends Car> {
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
 
     public void searches(CarRepository carRepository) {
+
         LOGGER.log(Level.INFO, "\nLista masinilor din CarRepositoryImpl este: {0}\n", carRepository.getAll());
     }
 }
