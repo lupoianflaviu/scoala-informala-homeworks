@@ -1,5 +1,6 @@
 package ro.sci.carrental;
 
+import ro.sci.carrental.dispatcher.CarRentalDispatcher;
 import ro.sci.carrental.domain.car.Car;
 import ro.sci.carrental.domain.customer.Customer;
 import ro.sci.carrental.reader.*;
@@ -13,6 +14,7 @@ import ro.sci.carrental.service.CustomerService;
 import ro.sci.carrental.service.CustomerServiceImpl;
 import ro.sci.carrental.simulations.SimulateCars;
 import ro.sci.carrental.simulations.SimulateCustomer;
+import ro.sci.carrental.simulations.SimulateThreads;
 import ro.sci.carrental.writer.CarWriter;
 import ro.sci.carrental.writer.CustomerWriter;
 
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class Main {
 
-    public static void main(String[] args) throws InvalidEntityException {
+    public static void main(String[] args) throws InvalidEntityException, InterruptedException {
 
         File carsFile = new File("cars.txt");
         EntityReader entityReader = new EntityReader();
@@ -70,5 +72,9 @@ public class Main {
         File outCustomers = new File("outcustomers.txt");
         CustomerWriter customerWriter = new CustomerWriter();
         customerWriter.writeObjects(customerRepository.getAll(), outCustomers);
+
+        //Threads for renting and returning cars
+        SimulateThreads simulateThreads = new SimulateThreads();
+        simulateThreads.simulate(carService);
     }
 }

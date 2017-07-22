@@ -19,7 +19,7 @@ public class Car {
     private Gearbox gearbox;
     private FuelType fuelType;
     private VehicleCategory vehicleCategory;
-    private boolean reserved;
+    private boolean reserved = false;
     private Price rentPrice;
 
     /**
@@ -120,7 +120,7 @@ public class Car {
         return reserved;
     }
 
-    public void setReserved(boolean reserved) {
+    public void isReserved(boolean reserved) {
         this.reserved = reserved;
     }
 
