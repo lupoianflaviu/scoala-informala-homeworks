@@ -1,20 +1,18 @@
 package ro.sci.carrental.simulations;
 
 import ro.sci.carrental.domain.car.Car;
-import ro.sci.carrental.repository.CarRepositoryImpl;
-import ro.sci.carrental.service.CarServiceImpl;
+import ro.sci.carrental.repository.CarRepository;
 
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Simulates car searches with different criteria.
  */
-public class SimulateCars {
-    public void searches(CarRepositoryImpl carRepository) {
-        System.out.println("Lista masinilor din CarRepositoryImpl este: ");
-        for (Car car : carRepository.getAll()) {
-            System.out.println(car.getMake());
-        }
-        System.out.println("_____________________________________");
+public class SimulateCars<T extends Car> {
+    private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
+
+    public void searches(CarRepository carRepository) {
+        LOGGER.log(Level.INFO, "\nLista masinilor din CarRepositoryImpl este: {0}\n", carRepository.getAll());
     }
 }

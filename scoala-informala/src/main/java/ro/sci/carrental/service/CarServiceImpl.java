@@ -1,22 +1,36 @@
 package ro.sci.carrental.service;
 
 import ro.sci.carrental.domain.car.Car;
-import ro.sci.carrental.repository.CarRepositoryImpl;
+import ro.sci.carrental.repository.CarRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Implementation of CarService.
- *
  */
-public class CarServiceImpl implements CarService {
+public class CarServiceImpl implements CarService<Car> {
 
-    private CarRepositoryImpl carRepository;
+    private CarRepository<Car> carRepository;
 
-    public CarServiceImpl(CarRepositoryImpl carRepository) {
+    public CarServiceImpl(CarRepository carRepository) {
 
         this.carRepository = carRepository;
+    }
+
+    @Override
+    public void add(Car t) {
+        this.carRepository.add(t);
+    }
+
+    @Override
+    public void delete(Car t) {
+        this.carRepository.delete(t);
+    }
+
+    @Override
+    public void update(Car t) {
+        this.carRepository.update(t);
     }
 
     /**
@@ -27,7 +41,7 @@ public class CarServiceImpl implements CarService {
      */
 
     public List<Car> findCarsByMake(String make) {
-        List<Car> foundCars = new ArrayList<Car>();
+        List<Car> foundCars = new ArrayList<>();
 
         for (Car car : carRepository.getAll()) {
             if (car.getMake().equalsIgnoreCase(make)) {
@@ -46,10 +60,11 @@ public class CarServiceImpl implements CarService {
      * @return list of found cars.
      */
     public List<Car> findCarsByMakeAndModel(String make, String model) {
-        List<Car> foundCars = new ArrayList<Car>();
+        List<Car> foundCars = new ArrayList<>();
 
         for (Car car : carRepository.getAll()) {
-            if ((car.getModel().equalsIgnoreCase(model)) && (car.getMake().equalsIgnoreCase(make))) {
+            if ((car.getModel().equalsIgnoreCase(String.valueOf(model)))
+                    && (car.getMake().equalsIgnoreCase(String.valueOf(make)))) {
                 foundCars.add(car);
             }
         }
@@ -66,12 +81,14 @@ public class CarServiceImpl implements CarService {
      * @param seats value of car seats
      * @return list of found cars
      */
-    public List<Car> findCarsByMakeModelColorAndSeats(String make, String model, String color, int seats) {
-        List<Car> foundCars = new ArrayList<Car>();
+    public List<Car> findCarsByMakeModelColorAndSeats(String make, String model, String color, String seats) {
+        List<Car> foundCars = new ArrayList<>();
 
         for (Car car : carRepository.getAll()) {
-            if ((car.getModel().equalsIgnoreCase(model)) && (car.getMake().equalsIgnoreCase(make))
-                    && (car.getColor().equalsIgnoreCase(color)) && (car.getSeats() == seats)) {
+            if ((car.getModel().equalsIgnoreCase(model))
+                    && (car.getMake().equalsIgnoreCase(make))
+                    && (car.getColor().equalsIgnoreCase(color))
+                    && (car.getSeats() == Integer.valueOf(seats))) {
                 foundCars.add(car);
             }
         }
@@ -79,8 +96,11 @@ public class CarServiceImpl implements CarService {
         return foundCars;
     }
 
-    public CarRepositoryImpl getCarRepository() {
+    public CarRepository<Car> getCarRepository() {
         return carRepository;
     }
 
+    public void setCarRepository(CarRepository<Car> carRepository) {
+        this.carRepository = carRepository;
+    }
 }

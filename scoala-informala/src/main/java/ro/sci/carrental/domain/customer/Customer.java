@@ -19,36 +19,13 @@ public class Customer {
     /**
      * Default Constructor
      */
-    public Customer() {}
-
-    /**
-     * Constructor for all fields
-     * @param id id
-     * @param firstName First Name
-     * @param lastName Last Name
-     * @param telephone Telephone No.
-     * @param email email address
-     * @param customerAddress Customer address
-     * @param paymentMethod Payment method
-     */
-    public Customer(int id, String firstName, String lastName, String telephone, String email, CustomerAddress customerAddress, PaymentMethod paymentMethod) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.telephone = telephone;
-        this.email = email;
-        this.customerAddress = customerAddress;
-        this.paymentMethod = paymentMethod;
+    public Customer() {
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    /**
-     *
-     * @param firstName
-     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -128,5 +105,14 @@ public class Customer {
         result = 31 * result + (customerAddress != null ? customerAddress.hashCode() : 0);
         result = 31 * result + (paymentMethod != null ? paymentMethod.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append(id).append(",").append(firstName).append(",").append(lastName).append(",")
+                .append(telephone).append(",").append(email).append(",").append(customerAddress).append(",")
+                .append(paymentMethod);
+        return result.toString();
     }
 }

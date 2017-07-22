@@ -1,0 +1,5 @@
+1,Doru,Cretu,0727777123,doru@cretu.ro,Str. I.Creanga Nr.12,Cluj-Napoca,CREDITCARD
+2,Virgil,Neamt,0721123123,neamt@virgil.ro,Str. Cara Nr.4,Oradea,CREDITCARD
+3,Ion,Creanga,0777333444,a@test.ro,Str. Boc Nr.4,Dej,CREDITCARD
+4,George,Deac,0720340345,george@test.ro,Str. Virgo Nr.7,Bucuresti,CREDITCARD
+5,Sean,Pean,+40740998877,sean@pean.ro,Str. V. Lucaciu Nr.25,Brasov,CREDITCARD

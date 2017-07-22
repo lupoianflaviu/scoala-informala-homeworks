@@ -2,8 +2,22 @@ package ro.sci.carrental;
 
 import ro.sci.carrental.domain.car.Car;
 import ro.sci.carrental.domain.customer.Customer;
-import ro.sci.carrental.repository.*;
-import ro.sci.carrental.simulations.*;
+import ro.sci.carrental.reader.*;
+import ro.sci.carrental.repository.CarRepository;
+import ro.sci.carrental.repository.CarRepositoryImpl;
+import ro.sci.carrental.repository.CustomerRepository;
+import ro.sci.carrental.repository.CustomerRepositoryImpl;
+import ro.sci.carrental.service.CarService;
+import ro.sci.carrental.service.CarServiceImpl;
+import ro.sci.carrental.service.CustomerService;
+import ro.sci.carrental.service.CustomerServiceImpl;
+import ro.sci.carrental.simulations.SimulateCars;
+import ro.sci.carrental.simulations.SimulateCustomer;
+import ro.sci.carrental.writer.CarWriter;
+import ro.sci.carrental.writer.CustomerWriter;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * <h1>RentACar Model</h1>
@@ -17,39 +31,44 @@ import ro.sci.carrental.simulations.*;
  * @since 1.8
  */
 public class Main {
-    public static void main(String[] args) {
-       Car mercedes = new Car();
-       mercedes.setMake("Mercedes");
-       Car bmw = new Car();
-       bmw.setMake("Bmw");
 
-       CarRepositoryImpl carRepository = new CarRepositoryImpl();
-       carRepository.add(mercedes);
-       carRepository.add(bmw);
+    public static void main(String[] args) throws InvalidEntityException {
 
-       Customer customer1 = new Customer();
-       customer1.setLastName("Cretu");
-       Customer customer2 = new Customer();
-       customer2.setLastName("Florea");
+        File carsFile = new File("cars.txt");
+        EntityReader entityReader = new EntityReader();
+        List<String> carLines = entityReader.readLines(carsFile);
+        Convertor<Car> carConvertor = new CarConvertor();
+        CarRepository<Car> carRepository = new CarRepositoryImpl();
+        CarService<Car> carService = new CarServiceImpl(carRepository);
 
-       CustomerRepositoryImpl customerRepository = new CustomerRepositoryImpl();
-       customerRepository.add(customer1);
-       customerRepository.add(customer2);
+        for (String line : carLines) {
+            carService.add(carConvertor.convert(line));
+        }
 
+        File customerFile = new File("customers.txt");
+        List<String> customerLines = entityReader.readLines(customerFile);
+        Convertor<Customer> customerConvertor = new CustomerConvertor();
+        CustomerRepository<Customer> customerRepository = new CustomerRepositoryImpl();
+        CustomerService<Customer> customerService = new CustomerServiceImpl(customerRepository);
+
+        for (String line : customerLines) {
+            customerService.add(customerConvertor.convert(line));
+        }
+//
         //efectuam cautari masini
-        SimulateCars simulateCars = new SimulateCars();
+        SimulateCars<Car> simulateCars = new SimulateCars<>();
         simulateCars.searches(carRepository);
-
+//
         //efectuam cautari clienti
         SimulateCustomer simulateCustomer = new SimulateCustomer();
         simulateCustomer.searches(customerRepository);
 
-        //TEMA: stergem un Car din Repository
-        carRepository.delete(mercedes);
-        System.out.println("Lista masinilor din CarRepositoryImpl este: ");
-        for (Car car : carRepository.getAll()) {
-            System.out.println(car.getMake());
-        }
-        System.out.println("_____________________________________");
+        File outCars = new File("outcars.txt");
+        CarWriter carWriter = new CarWriter();
+        carWriter.writeObjects(carRepository.getAll(), outCars);
+
+        File outCustomers = new File("outcustomers.txt");
+        CustomerWriter customerWriter = new CustomerWriter();
+        customerWriter.writeObjects(customerRepository.getAll(), outCustomers);
     }
 }

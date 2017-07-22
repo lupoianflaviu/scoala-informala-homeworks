@@ -1,0 +1,5 @@
+VW,Passat,5.0,red,5,4,true,false,MANUAL,DIESEL,SEDAN,false,25
+Mercedes,E250,5.4,black,5,4,true,true,MANUAL,DIESEL,SEDAN,false,40
+Bmw,525d,5.3,silver,5,4,true,true,AUTOMATIC,DIESEL,SEDAN,false,45
+Citroen,C5,5.2,silver,5,4,true,false,MANUAL,DIESEL,SEDAN,false,30
+Fiat,Uno,4.1,white,5,4,false,false,MANUAL,PETROL,HATCHBACK,false,20

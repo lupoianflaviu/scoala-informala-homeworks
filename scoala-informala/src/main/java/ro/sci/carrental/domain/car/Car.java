@@ -169,4 +169,14 @@ public class Car {
         result = 31 * result + (reserved ? 1 : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append(make).append(",").append(model).append(",").append(size).append(",")
+                .append(color).append(",").append(seats).append(",").append(doors).append(",").append(ac).append(",")
+                .append(gps).append(",").append(gearbox).append(",").append(fuelType).append(",").append(vehicleCategory)
+                .append(",").append(reserved).append(",").append(rentPrice);
+        return result.toString();
+    }
 }

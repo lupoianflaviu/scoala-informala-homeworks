@@ -2,32 +2,58 @@ package ro.sci.carrental.calendar;
 
 
 import ro.sci.carrental.domain.car.Car;
-import ro.sci.carrental.domain.customer.Customer;
 
 /**
  * Implementation of calendar Interface
- *
  */
-public class RentalCalendarImpl implements RentalCalendar{
+public class RentalCalendarImpl<T extends Car, V> implements RentalCalendar<Car, Integer> {
+    private Integer pickupTime;
+    private Integer returnTime;
+    private Integer interval;
 
-
-
-    public void pickupTime(Car car, Customer customer, String date) {
-        System.out.println("Automobilul " + car.getMake() + " va fi ridicat de catre clientul "
-                + customer.getLastName() + " la data si ora " + date);
-        car.setReserved(true);
+    public RentalCalendarImpl(Integer pickupTime, Integer returnTime) {
+        this.pickupTime = pickupTime;
+        this.returnTime = returnTime;
+        this.interval = this.returnTime - this.pickupTime;
     }
 
+    public double calculateRentPrice(Car car, Integer interval) {
+        double result;
+        interval = this.interval;
 
-    public void returnTime(Car car, Customer customer, String date) {
-        System.out.println("Automobilul " + car.getMake() + " va fi inapoiat de catre clientul " +
-                customer.getLastName() + " la data si ora " + date);
-        car.setReserved(false);
+        try {
+            result = car.getRentPrice().getValue() * interval.doubleValue();
+
+            return result;
+        } catch (NullPointerException e) {
+            System.err.println("Check for null " + e.getMessage());
+            result = -1;
+
+            return result;
+        }
     }
 
-    public <T extends Car, V extends Number> double calculateRentPrice(T car, V interval) {
-
-        return car.getRentPrice().getValue() * interval.doubleValue();
+    public Integer getInterval() {
+        return interval;
     }
 
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    public Integer getPickupTime() {
+        return pickupTime;
+    }
+
+    public void setPickupTime(Integer pickupTime) {
+        this.pickupTime = pickupTime;
+    }
+
+    public Integer getReturnTime() {
+        return returnTime;
+    }
+
+    public void setReturnTime(Integer returnTime) {
+        this.returnTime = returnTime;
+    }
 }
