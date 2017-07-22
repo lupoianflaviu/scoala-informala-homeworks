@@ -11,11 +11,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Object reader
+ * Reads a list of String lines from file
  */
 public class EntityReader {
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
 
+    /**
+     * Reads line from file
+     * @param file File to read
+     * @return List of String lines
+     */
     public List<String> readLines(File file) {
         Charset charset = Charset.forName("UTF8");
 
