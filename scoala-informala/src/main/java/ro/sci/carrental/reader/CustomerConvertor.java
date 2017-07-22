@@ -22,6 +22,7 @@ public class CustomerConvertor implements Convertor<Customer> {
         customer.setEmail(tokens[4]);
         customer.setCustomerAddress(new CustomerAddress(tokens[5], tokens[6]));
         customer.setPaymentMethod(PaymentMethod.valueOf(tokens[7].toUpperCase()));
+
         return customer;
     }
 }
