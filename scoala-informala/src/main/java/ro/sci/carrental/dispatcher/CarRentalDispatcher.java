@@ -25,7 +25,14 @@ public class CarRentalDispatcher {
                     }
                 }
                 carRepository.add(car);
+                LOGGER.log(Level.INFO, car + " returned");
                 notifyAll();
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    LOGGER.log(Level.INFO, e.getMessage());
+                }
             }
         }
     }
@@ -35,7 +42,7 @@ public class CarRentalDispatcher {
         while (true) {
             synchronized (this) {
 
-                while (carRepository.getAll().size() == carRepository.getCapacity()) {
+                while (carRepository.getAll().size() == 0) {
                     try {
                         wait();
                     } catch (InterruptedException e) {
@@ -43,7 +50,14 @@ public class CarRentalDispatcher {
                     }
                 }
                 carRepository.delete(car);
+                LOGGER.log(Level.INFO, car + " rented");
                 notifyAll();
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    LOGGER.log(Level.INFO, e.getMessage());
+                }
             }
         }
     }
