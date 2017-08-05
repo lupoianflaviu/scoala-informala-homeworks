@@ -4,12 +4,13 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Object writer interface
+ * Generic Object writer interface
  */
 public interface EntityWriter<T> {
 
     /**
      * Writes objects to a specified file
+     *
      * @param t Objects to write
      * @param file File output
      */

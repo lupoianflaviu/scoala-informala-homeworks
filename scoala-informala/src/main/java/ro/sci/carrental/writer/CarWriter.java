@@ -10,6 +10,10 @@ import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * CarWriter implements EntityWriter
+ * @param <Car> Car to write to file
+ */
 public class CarWriter<Car> implements EntityWriter<Car> {
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
 

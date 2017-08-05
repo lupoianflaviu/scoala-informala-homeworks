@@ -25,7 +25,7 @@ public class CarConvertor implements Convertor<Car> {
         car.setGearbox(Gearbox.valueOf(tokens[8]));
         car.setFuelType(FuelType.valueOf(tokens[9].toUpperCase()));
         car.setVehicleCategory(VehicleCategory.valueOf(tokens[10].toUpperCase()));
-        car.setReserved(Boolean.valueOf(tokens[11]));
+        car.isReserved(Boolean.valueOf(tokens[11]));
         car.setRentPrice(new Price(Double.valueOf(tokens[12])));
 
         return car;

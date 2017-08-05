@@ -1,5 +1,7 @@
 package ro.sci.carrental;
 
+import ro.sci.carrental.dao.CarDAO;
+import ro.sci.carrental.dispatcher.CarRentalDispatcher;
 import ro.sci.carrental.domain.car.Car;
 import ro.sci.carrental.domain.customer.Customer;
 import ro.sci.carrental.reader.*;
@@ -13,6 +15,7 @@ import ro.sci.carrental.service.CustomerService;
 import ro.sci.carrental.service.CustomerServiceImpl;
 import ro.sci.carrental.simulations.SimulateCars;
 import ro.sci.carrental.simulations.SimulateCustomer;
+import ro.sci.carrental.simulations.SimulateThreads;
 import ro.sci.carrental.writer.CarWriter;
 import ro.sci.carrental.writer.CustomerWriter;
 
@@ -32,43 +35,56 @@ import java.util.List;
  */
 public class Main {
 
-    public static void main(String[] args) throws InvalidEntityException {
+    public static void main(String[] args) throws InvalidEntityException, InterruptedException {
 
-        File carsFile = new File("cars.txt");
-        EntityReader entityReader = new EntityReader();
-        List<String> carLines = entityReader.readLines(carsFile);
-        Convertor<Car> carConvertor = new CarConvertor();
-        CarRepository<Car> carRepository = new CarRepositoryImpl();
-        CarService<Car> carService = new CarServiceImpl(carRepository);
+        //citire date sql si printare din CarRepository
+        CarDAO carDAO = new CarDAO();
+        carDAO.read();
+        carDAO.printRepository();
 
-        for (String line : carLines) {
-            carService.add(carConvertor.convert(line));
-        }
+        carDAO.writeToSql(); //merge doar dupa ce se intoduc datele de access la sql
 
-        File customerFile = new File("customers.txt");
-        List<String> customerLines = entityReader.readLines(customerFile);
-        Convertor<Customer> customerConvertor = new CustomerConvertor();
-        CustomerRepository<Customer> customerRepository = new CustomerRepositoryImpl();
-        CustomerService<Customer> customerService = new CustomerServiceImpl(customerRepository);
+//aici sunt restul cerintelor
 
-        for (String line : customerLines) {
-            customerService.add(customerConvertor.convert(line));
-        }
+//        File carsFile = new File("cars.txt");
+//        EntityReader entityReader = new EntityReader();
+//        List<String> carLines = entityReader.readLines(carsFile);
+//        Convertor<Car> carConvertor = new CarConvertor();
+//        CarRepository<Car> carRepository = new CarRepositoryImpl();
+//        CarService<Car> carService = new CarServiceImpl(carRepository);
+
+//        for (String line : carLines) {
+//            carService.add(carConvertor.convert(line));
+//        }
 //
-        //efectuam cautari masini
-        SimulateCars<Car> simulateCars = new SimulateCars<>();
-        simulateCars.searches(carRepository);
+//        File customerFile = new File("customers.txt");
+//        List<String> customerLines = entityReader.readLines(customerFile);
+//        Convertor<Customer> customerConvertor = new CustomerConvertor();
+//        CustomerRepository<Customer> customerRepository = new CustomerRepositoryImpl();
+//        CustomerService<Customer> customerService = new CustomerServiceImpl(customerRepository);
 //
-        //efectuam cautari clienti
-        SimulateCustomer simulateCustomer = new SimulateCustomer();
-        simulateCustomer.searches(customerRepository);
+//        for (String line : customerLines) {
+//            customerService.add(customerConvertor.convert(line));
+//        }
+////
+//        //efectuam cautari masini
+//        SimulateCars<Car> simulateCars = new SimulateCars<>();
+//        simulateCars.searches(carRepository);
+////
+//        //efectuam cautari clienti
+//        SimulateCustomer simulateCustomer = new SimulateCustomer();
+//        simulateCustomer.searches(customerRepository);
+//
+//        File outCars = new File("outcars.txt");
+//        CarWriter carWriter = new CarWriter();
+//        carWriter.writeObjects(carRepository.getAll(), outCars);
+//
+//        File outCustomers = new File("outcustomers.txt");
+//        CustomerWriter customerWriter = new CustomerWriter();
+//        customerWriter.writeObjects(customerRepository.getAll(), outCustomers);
 
-        File outCars = new File("outcars.txt");
-        CarWriter carWriter = new CarWriter();
-        carWriter.writeObjects(carRepository.getAll(), outCars);
-
-        File outCustomers = new File("outcustomers.txt");
-        CustomerWriter customerWriter = new CustomerWriter();
-        customerWriter.writeObjects(customerRepository.getAll(), outCustomers);
+        //Threads for renting and returning cars
+//        SimulateThreads simulateThreads = new SimulateThreads();
+//        simulateThreads.simulate(carService);
     }
 }

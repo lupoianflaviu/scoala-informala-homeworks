@@ -10,6 +10,11 @@ import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * CustomerWriter implements interface EntityWriter to write Customers to file
+ *
+ * @param <Customer> Customer to write
+ */
 public class CustomerWriter<Customer> implements EntityWriter<Customer> {
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
 

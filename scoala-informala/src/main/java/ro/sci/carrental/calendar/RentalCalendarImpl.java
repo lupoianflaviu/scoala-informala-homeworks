@@ -22,10 +22,12 @@ public class RentalCalendarImpl<T extends Car, V> implements RentalCalendar<Car,
         interval = this.interval;
 
         try {
+
             result = car.getRentPrice().getValue() * interval.doubleValue();
 
             return result;
         } catch (NullPointerException e) {
+
             System.err.println("Check for null " + e.getMessage());
             result = -1;
 
