@@ -7,11 +7,13 @@ import java.util.List;
  */
 public interface Repository<T> {
 
-    void addAll(List<T> t);
+    void addAll();
 
     void add(T t);
 
     void delete(T t);
 
-    void update(T t);
+    void update(T t, T v);
+
+    List<T> getAll();
 }

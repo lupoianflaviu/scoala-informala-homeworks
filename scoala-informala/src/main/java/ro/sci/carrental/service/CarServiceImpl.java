@@ -1,8 +1,11 @@
 package ro.sci.carrental.service;
 
-import ro.sci.carrental.domain.car.Car;
+import ro.sci.carrental.dao.CarDAO;
+import ro.sci.carrental.domain.car.*;
 import ro.sci.carrental.repository.CarRepository;
+import ro.sci.carrental.repository.Repository;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +14,21 @@ import java.util.List;
  */
 public class CarServiceImpl implements CarService<Car> {
 
-    private CarRepository<Car> carRepository;
+    private Repository<Car> carRepository;
 
-    public CarServiceImpl(CarRepository carRepository) {
+    public CarServiceImpl(Repository<Car> carRepository) {
 
         this.carRepository = carRepository;
+    }
+
+    @Override
+    public void addAll() {
+        this.carRepository.addAll();
+    }
+
+    @Override
+    public List<Car> getAll() {
+        return this.carRepository.getAll();
     }
 
     @Override
@@ -29,8 +42,8 @@ public class CarServiceImpl implements CarService<Car> {
     }
 
     @Override
-    public void update(Car t) {
-        this.carRepository.update(t);
+    public void update(Car car, Car oldCar) {
+        this.carRepository.update(car, oldCar);
     }
 
     /**
@@ -96,7 +109,7 @@ public class CarServiceImpl implements CarService<Car> {
         return foundCars;
     }
 
-    public CarRepository<Car> getCarRepository() {
+    public Repository<Car> getCarRepository() {
         return carRepository;
     }
 

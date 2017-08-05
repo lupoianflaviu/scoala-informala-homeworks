@@ -7,6 +7,10 @@ import java.util.List;
  */
 public interface CarService<T> {
 
+    void addAll();
+
+    List<T> getAll();
+
     /**
      * Add to repository
      *
@@ -26,7 +30,7 @@ public interface CarService<T> {
      *
      * @param t generic type
      */
-    void update(T t);
+    void update(T t, T v);
 
     /**
      * Find same make cars in system.
