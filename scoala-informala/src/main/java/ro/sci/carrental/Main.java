@@ -74,6 +74,7 @@ public class Main {
         customerWriter.writeObjects(customerRepository.getAll(), outCustomers);
 
         //Threads for renting and returning cars
+
         SimulateThreads simulateThreads = new SimulateThreads();
         simulateThreads.simulate(carService);
     }
