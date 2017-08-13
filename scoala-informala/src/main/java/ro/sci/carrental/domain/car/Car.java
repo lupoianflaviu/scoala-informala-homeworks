@@ -116,7 +116,7 @@ public class Car {
         this.gearbox = gearbox;
     }
 
-    public boolean isReserved() {
+    public boolean getReserved() {
         return reserved;
     }
 

@@ -72,5 +72,4 @@ public interface CarRepository<T extends Car>  extends Repository<T>{
     void freeup(T t);
 
     int getCapacity();
-
 }
