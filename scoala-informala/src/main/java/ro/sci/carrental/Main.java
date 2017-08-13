@@ -111,8 +111,7 @@ public class Main {
 //        File outCustomers = new File("outcustomers.txt");
 //        CustomerWriter customerWriter = new CustomerWriter();
 //        customerWriter.writeObjects(customerRepository.getAll(), outCustomers);
-//
-////        Threads for renting and returning cars
+
 //        SimulateThreads simulateThreads = new SimulateThreads();
 //        simulateThreads.simulate(carService);
     }
