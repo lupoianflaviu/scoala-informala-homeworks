@@ -51,7 +51,7 @@ public class CarRepositoryImpl implements CarRepository<Car> {
     }
 
     @Override
-    public void addAll(List<Car> cars) {
+    public void addAll() {
         this.cars.addAll(cars);
     }
 
@@ -59,8 +59,8 @@ public class CarRepositoryImpl implements CarRepository<Car> {
         cars.removeIf(anotherCar -> anotherCar.equals(car));
     }
 
-    public void update(Car car) {
-        cars.set(cars.indexOf(car), car);
+    public void update(Car car, Car oldCar) {
+        cars.set(cars.indexOf(oldCar), car);
     }
 
     public void reserve(Car car) {

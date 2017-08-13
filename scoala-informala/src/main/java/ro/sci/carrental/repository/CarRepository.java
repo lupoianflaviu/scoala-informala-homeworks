@@ -43,7 +43,7 @@ public interface CarRepository<T extends Car>  extends Repository<T>{
      *
      * @param t
      */
-    void addAll(List<T> t);
+    void addAll();
 
     /**
      * Delete a car from the system.
@@ -57,7 +57,7 @@ public interface CarRepository<T extends Car>  extends Repository<T>{
      *
      * @param t
      */
-    void update(T t);
+    void update(T t, T v);
 
     /**
      * Reserves Car
