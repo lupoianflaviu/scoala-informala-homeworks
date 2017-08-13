@@ -7,13 +7,16 @@ import ro.sci.carrental.service.CarService;
 public class SimulateThreads {
 
     public void simulate(CarService<Car> carService) throws InterruptedException {
+
         CarRentalDispatcher carRentalDispatcher = new CarRentalDispatcher();
+
         Thread rentCar1 = new Thread(new Runnable() {
             @Override
             public void run() {
                 carRentalDispatcher.rent(carService.findCarsByMake("VW").get(0));
             }
         });
+
 
         Thread rentCar2 = new Thread(new Runnable() {
             @Override
@@ -22,12 +25,14 @@ public class SimulateThreads {
             }
         });
 
+
         Thread rentCar3 = new Thread(new Runnable() {
             @Override
             public void run() {
                 carRentalDispatcher.rent(carService.findCarsByMake("Bmw").get(0));
             }
         });
+
 
         Thread rentCar4 = new Thread(new Runnable() {
             @Override
@@ -36,12 +41,14 @@ public class SimulateThreads {
             }
         });
 
+
         Thread rentCar5 = new Thread(new Runnable() {
             @Override
             public void run() {
                 carRentalDispatcher.rent(carService.findCarsByMake("Fiat").get(0));
             }
         });
+
 
         Thread freeupCar1 = new Thread(new Runnable() {
             @Override
@@ -50,12 +57,14 @@ public class SimulateThreads {
             }
         });
 
+
         rentCar1.start();
         rentCar2.start();
         rentCar3.start();
         rentCar4.start();
         rentCar5.start();
         freeupCar1.start();
+
 
         rentCar1.join();
         rentCar2.join();
