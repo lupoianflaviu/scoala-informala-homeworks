@@ -1,11 +1,9 @@
 package ro.sci.carrental.service;
 
-import ro.sci.carrental.dao.CarDAO;
-import ro.sci.carrental.domain.car.*;
+import ro.sci.carrental.domain.car.Car;
 import ro.sci.carrental.repository.CarRepository;
 import ro.sci.carrental.repository.Repository;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 

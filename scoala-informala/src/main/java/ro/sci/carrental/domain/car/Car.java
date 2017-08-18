@@ -173,7 +173,7 @@ public class Car {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(make).append(",").append(model).append(",").append(size).append(",")
+        result.append("\n").append(make).append(",").append(model).append(",").append(size).append(",")
                 .append(color).append(",").append(seats).append(",").append(doors).append(",").append(ac).append(",")
                 .append(gps).append(",").append(gearbox).append(",").append(fuelType).append(",").append(vehicleCategory)
                 .append(",").append(reserved).append(",").append(rentPrice);
