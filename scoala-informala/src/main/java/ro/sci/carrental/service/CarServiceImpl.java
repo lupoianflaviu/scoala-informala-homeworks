@@ -4,7 +4,6 @@ import ro.sci.carrental.domain.car.Car;
 import ro.sci.carrental.repository.CarRepository;
 import ro.sci.carrental.repository.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,9 +11,9 @@ import java.util.List;
  */
 public class CarServiceImpl implements CarService<Car> {
 
-    private Repository<Car> carRepository;
+    private CarRepository<Car> carRepository;
 
-    public CarServiceImpl(Repository<Car> carRepository) {
+    public CarServiceImpl(CarRepository<Car> carRepository) {
 
         this.carRepository = carRepository;
     }
@@ -52,15 +51,7 @@ public class CarServiceImpl implements CarService<Car> {
      */
 
     public List<Car> findCarsByMake(String make) {
-        List<Car> foundCars = new ArrayList<>();
-
-        for (Car car : carRepository.getAll()) {
-            if (car.getMake().equalsIgnoreCase(make)) {
-                foundCars.add(car);
-            }
-        }
-
-        return foundCars;
+        return this.carRepository.getCarsByMake(make);
     }
 
     /**
@@ -71,40 +62,7 @@ public class CarServiceImpl implements CarService<Car> {
      * @return list of found cars.
      */
     public List<Car> findCarsByMakeAndModel(String make, String model) {
-        List<Car> foundCars = new ArrayList<>();
-
-        for (Car car : carRepository.getAll()) {
-            if ((car.getModel().equalsIgnoreCase(String.valueOf(model)))
-                    && (car.getMake().equalsIgnoreCase(String.valueOf(make)))) {
-                foundCars.add(car);
-            }
-        }
-
-        return foundCars;
-    }
-
-    /**
-     * Public method findCarsByMakeModelColorAndSeats searches cars by make, model, color, seats.
-     *
-     * @param make  value of car make
-     * @param model value of car model
-     * @param color value of car color
-     * @param seats value of car seats
-     * @return list of found cars
-     */
-    public List<Car> findCarsByMakeModelColorAndSeats(String make, String model, String color, String seats) {
-        List<Car> foundCars = new ArrayList<>();
-
-        for (Car car : carRepository.getAll()) {
-            if ((car.getModel().equalsIgnoreCase(model))
-                    && (car.getMake().equalsIgnoreCase(make))
-                    && (car.getColor().equalsIgnoreCase(color))
-                    && (car.getSeats() == Integer.valueOf(seats))) {
-                foundCars.add(car);
-            }
-        }
-
-        return foundCars;
+        return this.carRepository.getCarsByMakeAndModel(make, model);
     }
 
     public Repository<Car> getCarRepository() {

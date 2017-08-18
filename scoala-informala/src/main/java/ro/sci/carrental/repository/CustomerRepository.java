@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Repository interface for Customer, this will help managing all persistence operations related to Customer.
  */
-public interface CustomerRepository<T extends Customer> extends Repository<T>{
+public interface CustomerRepository<T extends Customer> {
     /**
      * Get all Customers in the system.
      * @return List<T>

@@ -19,30 +19,30 @@ public class CarRepositoryImpl implements CarRepository<Car> {
     }
 
     @Override
-    public List<Car> getCarsByFuelType(String fuelType) {
-        List<Car> seachedCars = new ArrayList<>();
+    public List<Car> getCarsByMake(String make) {
+        List<Car> foundCars = new ArrayList<>();
 
         for (Car car : cars) {
-            if (cars.contains(fuelType)) {
-                seachedCars.add(car);
+            if (car.getMake().equalsIgnoreCase(make)) {
+                foundCars.add(car);
             }
-
         }
 
-        return seachedCars;
+        return foundCars;
     }
 
-    public List<Car> getCarsByMake(String make) {
-        List<Car> seachedCars = new ArrayList<>();
+    @Override
+    public List<Car> getCarsByMakeAndModel(String make, String model) {
+        List<Car> foundCars = new ArrayList<>();
 
         for (Car car : cars) {
-            if (cars.contains(car.getMake())) {
-                seachedCars.add(car);
+            if ((car.getModel().equalsIgnoreCase(String.valueOf(model)))
+                    && (car.getMake().equalsIgnoreCase(String.valueOf(make)))) {
+                foundCars.add(car);
             }
-
         }
 
-        return seachedCars;
+        return foundCars;
     }
 
     @Override

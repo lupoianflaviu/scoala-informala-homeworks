@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DBCarRepositoryImpl extends BaseDBRepository implements Repository<Car> {
+public class DBCarRepositoryImpl extends BaseDBRepository implements CarRepository<Car> {
 
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
 
@@ -174,5 +174,106 @@ public class DBCarRepositoryImpl extends BaseDBRepository implements Repository<
         }
 
         return cars;
+    }
+
+    @Override
+    public List<Car> getCarsByMake(String make) {
+
+        List<Car> searchedCars = new ArrayList<>();
+
+        try (Connection conn = newConnection();
+             PreparedStatement stm = conn.prepareStatement("select * from outcars where make=?")) {
+
+            stm.setString(1, make);
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+
+                Car car = new Car();
+
+                car.setMake(rs.getString("make"));
+                car.setModel(rs.getString("model"));
+                car.setSize(rs.getFloat("dimension"));
+                car.setColor(rs.getString("color"));
+                car.setSeats(rs.getInt("seats"));
+                car.setDoors(rs.getInt("doors"));
+                car.setAc(rs.getBoolean("ac"));
+                car.setGps(rs.getBoolean("gps"));
+                car.setGearbox(Gearbox.valueOf(rs.getString("gearbox")));
+                car.setFuelType(FuelType.valueOf(rs.getString("fueltype")));
+                car.setVehicleCategory(VehicleCategory.valueOf(rs.getString("vehiclecategory")));
+                car.isReserved(rs.getBoolean("reserved"));
+                car.setRentPrice(new Price(rs.getDouble("rentprice")));
+
+                searchedCars.add(car);
+            }
+
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.WARNING, "Database error!");
+            throw new RuntimeException("Exception thrown");
+        }
+
+        return searchedCars;
+    }
+
+    @Override
+    public List<Car> getCarsByMakeAndModel(String make, String model) {
+
+        List<Car> searchedCars = new ArrayList<>();
+
+        try (Connection conn = newConnection();
+             PreparedStatement stm = conn.prepareStatement("select * from outcars where make=? AND model=?")) {
+
+            stm.setString(1, make);
+            stm.setString(2, model);
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+
+                Car car = new Car();
+
+                car.setMake(rs.getString("make"));
+                car.setModel(rs.getString("model"));
+                car.setSize(rs.getFloat("dimension"));
+                car.setColor(rs.getString("color"));
+                car.setSeats(rs.getInt("seats"));
+                car.setDoors(rs.getInt("doors"));
+                car.setAc(rs.getBoolean("ac"));
+                car.setGps(rs.getBoolean("gps"));
+                car.setGearbox(Gearbox.valueOf(rs.getString("gearbox")));
+                car.setFuelType(FuelType.valueOf(rs.getString("fueltype")));
+                car.setVehicleCategory(VehicleCategory.valueOf(rs.getString("vehiclecategory")));
+                car.isReserved(rs.getBoolean("reserved"));
+                car.setRentPrice(new Price(rs.getDouble("rentprice")));
+
+                searchedCars.add(car);
+            }
+
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.WARNING, "Database error!");
+            throw new RuntimeException("Exception thrown");
+        }
+
+        return searchedCars;
+    }
+
+    @Override
+    public void reserve(Car car) {
+        LOGGER.log(Level.WARNING, "to be implemented");
+    }
+
+    @Override
+    public void freeup(Car car) {
+        LOGGER.log(Level.WARNING, "to be implemented");
+    }
+
+    @Override
+    public int getCapacity() {
+        LOGGER.log(Level.WARNING, "to be implemented");
+        return 0;
     }
 }

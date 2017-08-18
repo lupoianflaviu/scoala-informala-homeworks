@@ -31,7 +31,8 @@ public class Main {
     public static void main(String[] args) throws InvalidEntityException, InterruptedException {
 
         CarService<Car> carService = new CarServiceImpl(new DBCarRepositoryImpl());
-        LOGGER.log(Level.INFO, "\nLista masinilor din Repository este: \n" + carService.getAll().toString());
+        LOGGER.log(Level.INFO, "\nLista masinilor este: \n" + carService.findCarsByMake("Bmw").toString());
+//        LOGGER.log(Level.INFO, "\nLista masinilor din Repository este: \n" + carService.getAll().toString());
 
         CustomerService<Customer> customerService = new CustomerServiceImpl(new DBCustomerRepositoryImpl());
 //        customerService.addAll();
