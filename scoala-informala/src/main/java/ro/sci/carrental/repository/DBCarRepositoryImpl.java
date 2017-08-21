@@ -83,7 +83,8 @@ public class DBCarRepositoryImpl extends BaseDBRepository implements CarReposito
             conn.setAutoCommit(true);
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, "Database error!");
+            throw new RuntimeException("Exception thrown");
         }
 
         LOGGER.log(Level.INFO, "SCRIEREA IN TABELUL OUTCARS S-A INCHEIAT.");
