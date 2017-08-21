@@ -26,7 +26,7 @@ public interface CarRepository<T extends Car>  extends Repository<T>{
     /**
      * Return all cars by fuel type
      *
-     * @param v
+     * @param
      * @return List<Car>
      */
     List<T> getCarsByMakeAndModel(String make, String model);
@@ -37,13 +37,6 @@ public interface CarRepository<T extends Car>  extends Repository<T>{
      * @param t
      */
     void add(T t);
-
-    /**
-     * Add all cars in the system.
-     *
-     * @param t
-     */
-    void addAll();
 
     /**
      * Delete a car from the system.
@@ -58,18 +51,4 @@ public interface CarRepository<T extends Car>  extends Repository<T>{
      * @param t
      */
     void update(T t, T v);
-
-    /**
-     * Reserves Car
-     * @param t
-     */
-    void reserve(T t);
-
-    /**
-     * Car ready for rent
-     * @param t
-     */
-    void freeup(T t);
-
-    int getCapacity();
 }

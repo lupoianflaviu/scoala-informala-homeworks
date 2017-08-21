@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DBCustomerRepositoryImpl extends BaseDBRepository implements CustomerRepository<Customer> {
+public class CustomerRepositoryImpl extends BaseDBRepository implements CustomerRepository<Customer> {
 
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
     private static final String SELECT_FROM_OUTCUSTOMERS_WHERE_LASTNAME = "select * from outcustomers where lastname=?";
@@ -200,32 +200,6 @@ public class DBCustomerRepositoryImpl extends BaseDBRepository implements Custom
         }
 
         LOGGER.log(Level.INFO, WRITING_COMPLETE);
-
-    }
-
-    @Override
-    public void addAll() {
-        try (Connection conn = newConnection();
-             Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery(SELECT_FIRSTNAME_LASTNAME_TELEPHONE_EMAIL_STREETADDRESS_CITY_PAYMENTMETHOD_FROM_CUSTOMERS)) {
-
-            while (rs.next()) {
-                Customer customer = new Customer();
-
-                customer.setFirstName(rs.getString(FIRST_NAME));
-                customer.setLastName(rs.getString(LAST_NAME));
-                customer.setTelephone(rs.getString(TELEPHONE));
-                customer.setEmail(rs.getString(EMAIL));
-                customer.setCustomerAddress(new CustomerAddress
-                        (rs.getString(STREET_ADDRESS), rs.getString(CITY)));
-                customer.setPaymentMethod(PaymentMethod.valueOf(rs.getString(PAYMENTMETHOD)));
-
-                add(customer);
-            }
-        } catch (SQLException ex) {
-            LOGGER.log(Level.WARNING, DATABASE_ERROR);
-            throw new RuntimeException(EXCEPTION_THROWN);
-        }
 
     }
 

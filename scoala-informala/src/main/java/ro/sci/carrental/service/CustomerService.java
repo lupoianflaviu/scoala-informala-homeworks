@@ -8,11 +8,6 @@ import java.util.List;
 public interface CustomerService<T> {
 
     /**
-     * Add all Customers from another table
-     */
-    void addAll();
-
-    /**
      * Add Customer in Customer Repository
      */
     void add(T customer);

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Repository interface for Customer, this will help managing all persistence operations related to Customer.
  */
-public interface CustomerRepository<T extends Customer> {
+public interface CustomerRepository<T extends Customer> extends Repository<T>{
     /**
      * Get all Customers in the system.
      * @return List<T>
@@ -27,17 +27,13 @@ public interface CustomerRepository<T extends Customer> {
      * Get Customers by Telephone number.
      * @return List<T>
      */
+
     List<T> getCustomerByTelephone(String telephone);
 
     /**
      * Add a customer in the system.
      */
     void add(T customer);
-
-    /**
-     * Add all customers in the system.
-     */
-    void addAll();
 
     /**
      * Delete a customer from the system.

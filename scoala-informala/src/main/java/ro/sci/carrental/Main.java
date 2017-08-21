@@ -3,8 +3,8 @@ package ro.sci.carrental;
 import ro.sci.carrental.domain.car.Car;
 import ro.sci.carrental.domain.customer.Customer;
 import ro.sci.carrental.reader.InvalidEntityException;
-import ro.sci.carrental.repository.DBCarRepositoryImpl;
-import ro.sci.carrental.repository.DBCustomerRepositoryImpl;
+import ro.sci.carrental.repository.CarRepositoryImpl;
+import ro.sci.carrental.repository.CustomerRepositoryImpl;
 import ro.sci.carrental.service.CarService;
 import ro.sci.carrental.service.CarServiceImpl;
 import ro.sci.carrental.service.CustomerService;
@@ -30,11 +30,11 @@ public class Main {
 
     public static void main(String[] args) throws InvalidEntityException, InterruptedException {
 
-        CarService<Car> carService = new CarServiceImpl(new DBCarRepositoryImpl());
+        CarService<Car> carService = new CarServiceImpl(new CarRepositoryImpl());
         LOGGER.log(Level.INFO, "\nLista masinilor este: \n" + carService.findCarsByMake("Bmw").toString());
 //        LOGGER.log(Level.INFO, "\nLista masinilor din Repository este: \n" + carService.getAll().toString());
 
-        CustomerService<Customer> customerService = new CustomerServiceImpl(new DBCustomerRepositoryImpl());
+        CustomerService<Customer> customerService = new CustomerServiceImpl(new CustomerRepositoryImpl());
 //        customerService.addAll();
         LOGGER.log(Level.INFO, "\nLista clientilor din Repository este: \n" + customerService.getAll().toString());
 

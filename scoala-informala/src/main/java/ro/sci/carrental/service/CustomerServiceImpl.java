@@ -18,11 +18,6 @@ public class CustomerServiceImpl implements CustomerService<Customer> {
     }
 
     @Override
-    public void addAll() {
-        this.customerRepository.addAll();
-    }
-
-    @Override
     public void add(Customer customer) {
         this.customerRepository.add(customer);
     }

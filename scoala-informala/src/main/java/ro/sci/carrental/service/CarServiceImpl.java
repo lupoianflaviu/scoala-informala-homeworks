@@ -19,11 +19,6 @@ public class CarServiceImpl implements CarService<Car> {
     }
 
     @Override
-    public void addAll() {
-        this.carRepository.addAll();
-    }
-
-    @Override
     public List<Car> getAll() {
         return this.carRepository.getAll();
     }

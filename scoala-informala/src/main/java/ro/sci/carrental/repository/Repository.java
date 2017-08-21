@@ -7,8 +7,6 @@ import java.util.List;
  */
 public interface Repository<T> {
 
-    void addAll();
-
     void add(T t);
 
     void delete(T t);
@@ -16,8 +14,4 @@ public interface Repository<T> {
     void update(T t, T v);
 
     List<T> getAll();
-
-    List<T> getCarsByMake(String make);
-
-    List<T> getCarsByMakeAndModel(String make, String model);
 }

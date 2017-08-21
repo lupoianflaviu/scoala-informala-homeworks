@@ -7,8 +7,6 @@ import java.util.List;
  */
 public interface CarService<T> {
 
-    void addAll();
-
     List<T> getAll();
 
     /**
