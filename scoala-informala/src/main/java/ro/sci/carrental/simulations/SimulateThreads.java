@@ -1,14 +1,14 @@
-package ro.sci.carrental.simulations;
-
-import ro.sci.carrental.dispatcher.CarRentalDispatcher;
-import ro.sci.carrental.domain.car.Car;
-import ro.sci.carrental.service.CarService;
-
-public class SimulateThreads {
-
-    public void simulate(CarService<Car> carService) throws InterruptedException {
-
-        CarRentalDispatcher carRentalDispatcher = new CarRentalDispatcher();
+//package ro.sci.carrental.simulations;
+//
+//import ro.sci.carrental.dispatcher.CarRentalDispatcher;
+//import ro.sci.carrental.domain.car.Car;
+//import ro.sci.carrental.service.CarService;
+//
+//public class SimulateThreads {
+//
+//    public void simulate(CarService<Car> carService) throws InterruptedException {
+//
+//        CarRentalDispatcher carRentalDispatcher = new CarRentalDispatcher();
 
 //        Thread rentCar1 = new Thread(new Runnable() {
 //            @Override
@@ -72,5 +72,5 @@ public class SimulateThreads {
 //        rentCar4.join();
 //        rentCar5.join();
 //        freeupCar1.join();
-    }
-}
+//    }
+//}

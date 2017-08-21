@@ -41,16 +41,5 @@ public class Main {
         LOGGER.log(Level.INFO, customerService.findCustomerByLastName("cretu").toString());
         LOGGER.log(Level.INFO, customerService.findCustomerByTelephone("07277744888").toString());
         LOGGER.log(Level.INFO, customerService.findCustomerByFullName("florin", "salam").toString());
-
-//        File outCars = new File("outcars.txt");
-//        CarWriter carWriter = new CarWriter();
-//        carWriter.writeObjects(carService.getAll(), outCars);
-//
-//        File outCustomers = new File("outcustomers.txt");
-//        CustomerWriter customerWriter = new CustomerWriter();
-//        customerWriter.writeObjects(customerRepository.getAll(), outCustomers);
-
-//        SimulateThreads simulateThreads = new SimulateThreads();
-//        simulateThreads.simulate(carService);
     }
 }
