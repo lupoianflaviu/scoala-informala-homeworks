@@ -110,7 +110,7 @@ public class Customer {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(id).append(",").append(firstName).append(",").append(lastName).append(",")
+        result.append("\n").append(firstName).append(",").append(lastName).append(",")
                 .append(telephone).append(",").append(email).append(",").append(customerAddress).append(",")
                 .append(paymentMethod);
         return result.toString();

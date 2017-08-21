@@ -17,11 +17,28 @@ public class CustomerRepositoryImpl implements CustomerRepository<Customer> {
     }
 
     public List<Customer> getCustomerByLastName(String lastName) {
-        return null;
+        List<Customer> foundCustomers = new ArrayList<>();
+
+        for (Customer customer : customers) {
+            if (customer.getLastName().equalsIgnoreCase(lastName)) {
+                foundCustomers.add(customer);
+            }
+        }
+
+        return foundCustomers;
     }
 
     public List<Customer> getCustomerByFullName(String firstName, String lastName) {
-        return null;
+        List<Customer> foundCustomers = new ArrayList<>();
+
+        for (Customer customer : customers) {
+            if ((customer.getFirstName().equalsIgnoreCase(firstName))
+                    && (customer.getLastName().equalsIgnoreCase(lastName))) {
+                foundCustomers.add(customer);
+            }
+        }
+
+        return foundCustomers;
     }
 
     public List<Customer> getCustomerByTelephone(String telephone) {
@@ -29,19 +46,31 @@ public class CustomerRepositoryImpl implements CustomerRepository<Customer> {
     }
 
 
+    @Override
+    public void addAll() {
+
+    }
+
     public void add(Customer customer) {
         customers.add(customer);
     }
 
-    public void addAll(List<Customer> customers) {
-        customers.addAll(customers);
-    }
+//    public void addAll(List<Customer> customers) {
+//        customers.addAll(customers);
+//    }
 
     public void delete(Customer customer) {
         customers.removeIf(anotherCustomer -> anotherCustomer.equals(customer));
     }
 
-    public void update(Customer customer) {
-        customers.set(customers.indexOf(customer), customer);
+    @Override
+    public void update(Customer newCustomer, Customer oldCustomer) {
+
     }
+
+//    public void update(Customer customer) {
+//        customers.set(customers.indexOf(customer), customer);
+//    }
+
+
 }

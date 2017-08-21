@@ -29,7 +29,7 @@ public interface CarRepository<T extends Car>  extends Repository<T>{
      * @param v
      * @return List<Car>
      */
-    List<T> getCarsByFuelType(String v);
+    List<T> getCarsByMakeAndModel(String make, String model);
 
     /**
      * Add a car in the system.

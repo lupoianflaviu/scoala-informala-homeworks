@@ -48,15 +48,4 @@ public interface CarService<T> {
      * @return List<Car>
      */
     List<T> findCarsByMakeAndModel(String make, String model);
-
-    /**
-     * Find same make, model, color and seats cars in system.
-     *
-     * @param make
-     * @param model
-     * @param color
-     * @param seats
-     * @return List<Car>
-     */
-    List<T> findCarsByMakeModelColorAndSeats(String make, String model, String color, String seats);
 }

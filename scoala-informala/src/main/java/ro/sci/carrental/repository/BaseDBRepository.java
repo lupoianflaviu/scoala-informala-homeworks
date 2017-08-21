@@ -15,23 +15,22 @@ abstract class BaseDBRepository {
         }
     }
 
-    Connection newConnection(String type, String host, String port, String dbName, String user,
-                             String pw) {
+    Connection newConnection() {
         loadDriver();
         DriverManager.setLoginTimeout(60);
 
         try {
-            String url = new StringBuilder().append("jdbc:").append(type)
+            String url = new StringBuilder().append("jdbc:").append("postgresql")
                     .append("://")
-                    .append(host)
+                    .append("localhost")
                     .append(":")
-                    .append(port)
+                    .append("5432")
                     .append("/")
-                    .append(dbName)
+                    .append("carrental")
                     .append("?user=")
-                    .append(user)
+                    .append("admin2")
                     .append("&password=")
-                    .append(pw)
+                    .append("admin2")
                     .toString();
             return DriverManager.getConnection(url);
         } catch (SQLException e) {

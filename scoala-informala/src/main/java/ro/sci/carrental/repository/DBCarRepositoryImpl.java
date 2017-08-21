@@ -8,32 +8,32 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DBCarRepositoryImpl extends BaseDBRepository implements Repository<Car> {
+public class DBCarRepositoryImpl extends BaseDBRepository implements CarRepository<Car> {
 
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
+
+    private static final String SQL_SELECT_FROM_CARS = "select make,model,dimension,color,seats,doors,ac,gps," +
+            "gearbox,fueltype,vehiclecategory,reserved,rentprice from cars";
+
+    private static final String SQL_INSERT_INTO_OUTCARS = "INSERT INTO outcars(make,model,dimension,color,seats,doors," +
+            "ac,gps,gearbox,fueltype,vehiclecategory,reserved,rentprice) " +
+            "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+    private static final String DELETE_FROM_OUTCARS_WHERE_MODEL = "DELETE FROM outcars where model=?";
+
+    private static final String SQL_UPDATE_OUTCARS = "UPDATE outcars " +
+            "SET make=?, model=?, dimension=?, color=?, seats=?, doors=?, ac=?, gps=?, gearbox=?, fueltype=?, " +
+            "vehiclecategory=? ,reserved=?, rentprice=? " +
+            "WHERE model = ?";
+
     private List<Car> cars = new ArrayList<>();
 
     @Override
-    void loadDriver() {
-
-        super.loadDriver();
-    }
-
-    @Override
-    Connection newConnection(String type, String host, String port, String dbName, String user, String pw) {
-
-        return super.newConnection(type, host, port, dbName, user, pw);
-    }
-
-    @Override
     public void addAll() {
-        try (Connection conn = newConnection("postgresql",
-                "localhost", "5432", "carrental",
-                "admin2", "admin2");
+        try (Connection conn = newConnection();
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(
-                     "select make,model,dimension,color,seats,doors,ac,gps," +
-                             "gearbox,fueltype,vehiclecategory,reserved,rentprice from cars")) {
+                     SQL_SELECT_FROM_CARS)) {
 
             while (rs.next()) {
                 Car car = new Car();
@@ -51,21 +51,19 @@ public class DBCarRepositoryImpl extends BaseDBRepository implements Repository<
                 car.isReserved(rs.getBoolean("reserved"));
                 car.setRentPrice(new Price(rs.getDouble("rentprice")));
 
-                cars.add(car);
+                add(car);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, "Database error!");
+            throw new RuntimeException("Exception thrown");
         }
     }
 
     @Override
     public void add(Car car) {
-        try (Connection conn = newConnection("postgresql", "localhost", "5432",
-                "carrental", "admin2", "admin2");
+        try (Connection conn = newConnection();
              PreparedStatement stm =
-                     conn.prepareStatement("INSERT INTO outcars(make,model,dimension,color,seats,doors," +
-                             "ac,gps,gearbox,fueltype,vehiclecategory,reserved,rentprice) " +
-                             "values(?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+                     conn.prepareStatement(SQL_INSERT_INTO_OUTCARS)) {
 
             conn.setAutoCommit(false);
             stm.setString(1, car.getMake());
@@ -82,9 +80,9 @@ public class DBCarRepositoryImpl extends BaseDBRepository implements Repository<
             stm.setBoolean(12, car.getReserved());
             stm.setDouble(13, car.getRentPrice().getValue());
 
+            stm.execute();
             conn.commit();
             conn.setAutoCommit(true);
-            stm.execute();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -96,16 +94,16 @@ public class DBCarRepositoryImpl extends BaseDBRepository implements Repository<
     @Override
     public void delete(Car car) {
         //delete by model
-        try (Connection conn = newConnection("postgresql", "localhost", "5432",
-                "carrental", "admin2", "admin2");
+        try (Connection conn = newConnection();
              PreparedStatement stm =
-                     conn.prepareStatement("DELETE FROM outcars where model=?")) {
+                     conn.prepareStatement(DELETE_FROM_OUTCARS_WHERE_MODEL)) {
 
             stm.setString(1, car.getModel());
             stm.executeUpdate();
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, "Database error!");
+            throw new RuntimeException("Exception thrown");
         }
 
         LOGGER.log(Level.INFO, "STERGEREA MASINII DIN TABELUL OUTCARS S-A INCHEIAT.");
@@ -113,12 +111,9 @@ public class DBCarRepositoryImpl extends BaseDBRepository implements Repository<
 
     @Override
     public void update(Car car, Car oldCar) {
-        try (Connection conn = newConnection("postgresql", "localhost", "5432",
-                "carrental", "admin2", "admin2");
+        try (Connection conn = newConnection();
              PreparedStatement stm =
-                     conn.prepareStatement("UPDATE outcars " +
-                             "SET make=?, model=?, dimension=?, color=?, seats=?, doors=?, ac=?, gps=?, gearbox=?, fueltype=?, vehiclecategory=? ,reserved=?, rentprice=? " +
-                             "WHERE model = ?")) {
+                     conn.prepareStatement(SQL_UPDATE_OUTCARS)) {
 
             stm.setString(1, car.getMake());
             stm.setString(2, car.getModel());
@@ -139,7 +134,8 @@ public class DBCarRepositoryImpl extends BaseDBRepository implements Repository<
             stm.executeUpdate();
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            LOGGER.log(Level.WARNING, "Database error!");
+            throw new RuntimeException("Exception thrown");
         }
 
         LOGGER.log(Level.INFO, "Modificarea masinii s-a terminat");
@@ -148,6 +144,136 @@ public class DBCarRepositoryImpl extends BaseDBRepository implements Repository<
     @Override
     public List<Car> getAll() {
 
+        try (Connection conn = newConnection();
+             Statement stm = conn.createStatement();
+             ResultSet rs = stm.executeQuery(
+                     "select * from outcars")) {
+
+            while (rs.next()) {
+
+                Car car = new Car();
+                car.setMake(rs.getString("make"));
+                car.setModel(rs.getString("model"));
+                car.setSize(rs.getFloat("dimension"));
+                car.setColor(rs.getString("color"));
+                car.setSeats(rs.getInt("seats"));
+                car.setDoors(rs.getInt("doors"));
+                car.setAc(rs.getBoolean("ac"));
+                car.setGps(rs.getBoolean("gps"));
+                car.setGearbox(Gearbox.valueOf(rs.getString("gearbox")));
+                car.setFuelType(FuelType.valueOf(rs.getString("fueltype")));
+                car.setVehicleCategory(VehicleCategory.valueOf(rs.getString("vehiclecategory")));
+                car.isReserved(rs.getBoolean("reserved"));
+                car.setRentPrice(new Price(rs.getDouble("rentprice")));
+
+                cars.add(car);
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.WARNING, "Database error!");
+            throw new RuntimeException("Exception thrown");
+        }
+
         return cars;
+    }
+
+    @Override
+    public List<Car> getCarsByMake(String make) {
+
+        List<Car> searchedCars = new ArrayList<>();
+
+        try (Connection conn = newConnection();
+             PreparedStatement stm = conn.prepareStatement("select * from outcars where make=?")) {
+
+            stm.setString(1, make);
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+
+                Car car = new Car();
+
+                car.setMake(rs.getString("make"));
+                car.setModel(rs.getString("model"));
+                car.setSize(rs.getFloat("dimension"));
+                car.setColor(rs.getString("color"));
+                car.setSeats(rs.getInt("seats"));
+                car.setDoors(rs.getInt("doors"));
+                car.setAc(rs.getBoolean("ac"));
+                car.setGps(rs.getBoolean("gps"));
+                car.setGearbox(Gearbox.valueOf(rs.getString("gearbox")));
+                car.setFuelType(FuelType.valueOf(rs.getString("fueltype")));
+                car.setVehicleCategory(VehicleCategory.valueOf(rs.getString("vehiclecategory")));
+                car.isReserved(rs.getBoolean("reserved"));
+                car.setRentPrice(new Price(rs.getDouble("rentprice")));
+
+                searchedCars.add(car);
+            }
+
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.WARNING, "Database error!");
+            throw new RuntimeException("Exception thrown");
+        }
+
+        return searchedCars;
+    }
+
+    @Override
+    public List<Car> getCarsByMakeAndModel(String make, String model) {
+
+        List<Car> searchedCars = new ArrayList<>();
+
+        try (Connection conn = newConnection();
+             PreparedStatement stm = conn.prepareStatement("select * from outcars where make=? AND model=?")) {
+
+            stm.setString(1, make);
+            stm.setString(2, model);
+
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+
+                Car car = new Car();
+
+                car.setMake(rs.getString("make"));
+                car.setModel(rs.getString("model"));
+                car.setSize(rs.getFloat("dimension"));
+                car.setColor(rs.getString("color"));
+                car.setSeats(rs.getInt("seats"));
+                car.setDoors(rs.getInt("doors"));
+                car.setAc(rs.getBoolean("ac"));
+                car.setGps(rs.getBoolean("gps"));
+                car.setGearbox(Gearbox.valueOf(rs.getString("gearbox")));
+                car.setFuelType(FuelType.valueOf(rs.getString("fueltype")));
+                car.setVehicleCategory(VehicleCategory.valueOf(rs.getString("vehiclecategory")));
+                car.isReserved(rs.getBoolean("reserved"));
+                car.setRentPrice(new Price(rs.getDouble("rentprice")));
+
+                searchedCars.add(car);
+            }
+
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.WARNING, "Database error!");
+            throw new RuntimeException("Exception thrown");
+        }
+
+        return searchedCars;
+    }
+
+    @Override
+    public void reserve(Car car) {
+        LOGGER.log(Level.WARNING, "to be implemented");
+    }
+
+    @Override
+    public void freeup(Car car) {
+        LOGGER.log(Level.WARNING, "to be implemented");
+    }
+
+    @Override
+    public int getCapacity() {
+        LOGGER.log(Level.WARNING, "to be implemented");
+        return 0;
     }
 }

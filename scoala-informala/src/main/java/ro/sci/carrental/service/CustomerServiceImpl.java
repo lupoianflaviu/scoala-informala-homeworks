@@ -18,6 +18,11 @@ public class CustomerServiceImpl implements CustomerService<Customer> {
     }
 
     @Override
+    public void addAll() {
+        this.customerRepository.addAll();
+    }
+
+    @Override
     public void add(Customer customer) {
         this.customerRepository.add(customer);
     }
@@ -28,36 +33,24 @@ public class CustomerServiceImpl implements CustomerService<Customer> {
     }
 
     @Override
-    public void update(Customer customer) {
-        this.customerRepository.update(customer);
+    public void update(Customer customer, Customer newCustomer) {
+        this.customerRepository.update(customer, newCustomer);
+    }
+
+    @Override
+    public List<Customer> getAll() {
+        return this.customerRepository.getAll();
     }
 
     @Override
     public List<Customer> findCustomerByLastName(String lastName) {
 
-        List<Customer> foundCustomers = new ArrayList<>();
-
-        for (Customer customer : customerRepository.getAll()) {
-            if (customer.getLastName().equalsIgnoreCase(lastName)) {
-                foundCustomers.add(customer);
-            }
-        }
-
-        return foundCustomers;
+        return customerRepository.getCustomerByLastName(lastName);
     }
 
     @Override
     public List<Customer> findCustomerByFullName(String firstName, String lastName) {
-        List<Customer> foundCustomers = new ArrayList<>();
-
-        for (Customer customer : customerRepository.getAll()) {
-            if ((customer.getFirstName().equalsIgnoreCase(firstName))
-                    && (customer.getLastName().equalsIgnoreCase(lastName))) {
-                foundCustomers.add(customer);
-            }
-        }
-
-        return foundCustomers;
+        return customerRepository.getCustomerByFullName(firstName, lastName);
     }
 
     @Override

@@ -16,4 +16,8 @@ public interface Repository<T> {
     void update(T t, T v);
 
     List<T> getAll();
+
+    List<T> getCarsByMake(String make);
+
+    List<T> getCarsByMakeAndModel(String make, String model);
 }

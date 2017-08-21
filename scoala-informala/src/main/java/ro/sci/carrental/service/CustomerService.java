@@ -8,6 +8,11 @@ import java.util.List;
 public interface CustomerService<T> {
 
     /**
+     * Add all Customers from another table
+     */
+    void addAll();
+
+    /**
      * Add Customer in Customer Repository
      */
     void add(T customer);
@@ -20,7 +25,13 @@ public interface CustomerService<T> {
     /**
      * Update Customer in Customer Repository
      */
-    void update(T customer);
+    void update(T customer, T newCustomer);
+
+    /**
+     * Get all customers in Customer Repository
+     * @return
+     */
+    List<T> getAll();
 
     /**
      * Find customers by last name.
