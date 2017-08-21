@@ -26,8 +26,6 @@ public class DBCarRepositoryImpl extends BaseDBRepository implements CarReposito
             "vehiclecategory=? ,reserved=?, rentprice=? " +
             "WHERE model = ?";
 
-    private List<Car> cars = new ArrayList<>();
-
     @Override
     public void addAll() {
         try (Connection conn = newConnection();
@@ -143,6 +141,7 @@ public class DBCarRepositoryImpl extends BaseDBRepository implements CarReposito
 
     @Override
     public List<Car> getAll() {
+        List<Car> cars = new ArrayList<>();
 
         try (Connection conn = newConnection();
              Statement stm = conn.createStatement();

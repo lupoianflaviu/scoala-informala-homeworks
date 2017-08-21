@@ -14,10 +14,10 @@ public class DBCustomerRepositoryImpl extends BaseDBRepository implements Custom
 
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
 
-    private List<Customer> customers = new ArrayList<>();
-
     @Override
     public List<Customer> getAll() {
+        List<Customer> customers = new ArrayList<>();
+
         try (Connection conn = newConnection();
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(
@@ -241,7 +241,7 @@ public class DBCustomerRepositoryImpl extends BaseDBRepository implements Custom
             stm.setString(6, newCustomer.getCustomerAddress().getCity());
             stm.setString(7, newCustomer.getPaymentMethod().toString());
 
-            stm.setString(14, oldCustomer.getLastName());
+            stm.setString(8, oldCustomer.getLastName());
 
             stm.executeUpdate();
 
