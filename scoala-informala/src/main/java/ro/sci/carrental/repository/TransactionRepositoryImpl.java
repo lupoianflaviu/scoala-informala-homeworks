@@ -1,9 +1,9 @@
 package ro.sci.carrental.repository;
 
-import ro.sci.carrental.calendar.Transaction;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import ro.sci.carrental.calendar.Transaction;
 
 /**
  * Transaction repository implementation

@@ -1,14 +1,18 @@
 package ro.sci.carrental.repository;
 
-import ro.sci.carrental.domain.customer.Customer;
-import ro.sci.carrental.domain.customer.CustomerAddress;
-import ro.sci.carrental.domain.customer.PaymentMethod;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import ro.sci.carrental.domain.customer.Customer;
+import ro.sci.carrental.domain.customer.CustomerAddress;
+import ro.sci.carrental.domain.customer.PaymentMethod;
 
 public class CustomerRepositoryImpl extends BaseDBRepository implements CustomerRepository<Customer> {
 
@@ -19,11 +23,8 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
     private static final String SELECT_FROM_OUTCUSTOMERS_WHERE_TELEPHONE = "SELECT * FROM outcustomers WHERE telephone=?";
     private static final String INSERT_INTO_OUTCUSTOMERS_VALUES =
             "INSERT INTO outcustomers(firstname,lastname,telephone,email,streetaddress,city,paymentmethod) " + "values(?,?,?,?,?,?,?)";
-    private static final String SELECT_FIRSTNAME_LASTNAME_TELEPHONE_EMAIL_STREETADDRESS_CITY_PAYMENTMETHOD_FROM_CUSTOMERS =
-            "select firstname,lastname,telephone,email,streetaddress,city,paymentmethod from customers";
-    private static final String DELETE_FROM_OUTCARS_WHERE_LASTNAME = "DELETE FROM outcars where lastname=?";
-    private static final String SET_WHERE_LASTNAME =
-            "SET firstname=?, lastname=?, telephone=?, email=?, streetaddress=?, city=?, paymentmethod=? " + "WHERE lastname = ?";
+    private static final String DELETE_FROM_OUTCARS_WHERE_ID = "DELETE FROM outcars where id=?";
+    private static final String SET_WHERE_ID = "SET firstname=?, lastname=?, telephone=?, email=?, streetaddress=?, city=?, paymentmethod=? " + "WHERE id = ?";
     private static final String DATABASE_ERROR = "Database error!";
     private static final String EXCEPTION_THROWN = "Exception thrown";
     private static final String UPDATE_FINISHED = "Modificarea clientului s-a terminat";
@@ -36,43 +37,14 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
     private static final String STREET_ADDRESS = "streetaddress";
     private static final String CITY = "city";
     private static final String PAYMENTMETHOD = "paymentmethod";
-
-    @Override
-    public List<Customer> getAll() {
-        List<Customer> customers = new ArrayList<>();
-
-        try (Connection conn = newConnection();
-             Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery(SELECT_ALL_FROM_OUTCUSTOMERS)) {
-
-            while (rs.next()) {
-
-                Customer customer = new Customer();
-
-                customer.setFirstName(rs.getString(FIRST_NAME));
-                customer.setLastName(rs.getString(LAST_NAME));
-                customer.setTelephone(rs.getString(TELEPHONE));
-                customer.setEmail(rs.getString(EMAIL));
-                customer.setCustomerAddress(new CustomerAddress
-                        (rs.getString(STREET_ADDRESS), rs.getString(CITY)));
-                customer.setPaymentMethod(PaymentMethod.valueOf(rs.getString(PAYMENTMETHOD)));
-                customers.add(customer);
-            }
-        } catch (SQLException ex) {
-            LOGGER.log(Level.WARNING, DATABASE_ERROR);
-            throw new RuntimeException(EXCEPTION_THROWN);
-        }
-
-        return customers;
-    }
+    private static final String ID = "id";
 
     @Override
     public List<Customer> getCustomerByLastName(String lastName) {
 
         List<Customer> searchedCustomers = new ArrayList<>();
 
-        try (Connection conn = newConnection();
-             PreparedStatement stm = conn.prepareStatement(SELECT_FROM_OUTCUSTOMERS_WHERE_LASTNAME)) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SELECT_FROM_OUTCUSTOMERS_WHERE_LASTNAME)) {
 
             stm.setString(1, lastName);
 
@@ -81,13 +53,12 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
             while (rs.next()) {
 
                 Customer customer = new Customer();
-
+                customer.setId(rs.getInt(ID));
                 customer.setFirstName(rs.getString(FIRST_NAME));
                 customer.setLastName(rs.getString(LAST_NAME));
                 customer.setTelephone(rs.getString(TELEPHONE));
                 customer.setEmail(rs.getString(EMAIL));
-                customer.setCustomerAddress(new CustomerAddress
-                        (rs.getString(STREET_ADDRESS), rs.getString(CITY)));
+                customer.setCustomerAddress(new CustomerAddress(rs.getString(STREET_ADDRESS), rs.getString(CITY)));
                 customer.setPaymentMethod(PaymentMethod.valueOf(rs.getString(PAYMENTMETHOD)));
 
                 searchedCustomers.add(customer);
@@ -106,8 +77,7 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
     public List<Customer> getCustomerByFullName(String firstName, String lastName) {
         List<Customer> searchedCustomers = new ArrayList<>();
 
-        try (Connection conn = newConnection();
-             PreparedStatement stm = conn.prepareStatement(SELECT_ALL_FROM_OUTCUSTOMERS_WHERE_FIRSTNAME_AND_LASTNAME)) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SELECT_ALL_FROM_OUTCUSTOMERS_WHERE_FIRSTNAME_AND_LASTNAME)) {
 
             stm.setString(1, firstName);
             stm.setString(2, lastName);
@@ -117,13 +87,12 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
             while (rs.next()) {
 
                 Customer customer = new Customer();
-
+                customer.setId(rs.getInt(ID));
                 customer.setFirstName(rs.getString(FIRST_NAME));
                 customer.setLastName(rs.getString(LAST_NAME));
                 customer.setTelephone(rs.getString(TELEPHONE));
                 customer.setEmail(rs.getString(EMAIL));
-                customer.setCustomerAddress(new CustomerAddress
-                        (rs.getString(STREET_ADDRESS), rs.getString(CITY)));
+                customer.setCustomerAddress(new CustomerAddress(rs.getString(STREET_ADDRESS), rs.getString(CITY)));
                 customer.setPaymentMethod(PaymentMethod.valueOf(rs.getString(PAYMENTMETHOD)));
 
                 searchedCustomers.add(customer);
@@ -142,8 +111,7 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
     public List<Customer> getCustomerByTelephone(String telephone) {
         List<Customer> searchedCustomers = new ArrayList<>();
 
-        try (Connection conn = newConnection();
-             PreparedStatement stm = conn.prepareStatement(SELECT_FROM_OUTCUSTOMERS_WHERE_TELEPHONE)) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SELECT_FROM_OUTCUSTOMERS_WHERE_TELEPHONE)) {
 
             stm.setString(1, telephone);
 
@@ -153,13 +121,12 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
 
 
                 Customer customer = new Customer();
-
+                customer.setId(rs.getInt(ID));
                 customer.setFirstName(rs.getString(FIRST_NAME));
                 customer.setLastName(rs.getString(LAST_NAME));
                 customer.setTelephone(rs.getString(TELEPHONE));
                 customer.setEmail(rs.getString(EMAIL));
-                customer.setCustomerAddress(new CustomerAddress
-                        (rs.getString(STREET_ADDRESS), rs.getString(CITY)));
+                customer.setCustomerAddress(new CustomerAddress(rs.getString(STREET_ADDRESS), rs.getString(CITY)));
                 customer.setPaymentMethod(PaymentMethod.valueOf(rs.getString(PAYMENTMETHOD)));
 
                 searchedCustomers.add(customer);
@@ -175,24 +142,49 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
     }
 
     @Override
+    public void update(Customer newCustomer) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SET_WHERE_ID)) {
+
+            stm.setString(1, newCustomer.getFirstName());
+            stm.setString(2, newCustomer.getLastName());
+            stm.setString(3, newCustomer.getTelephone());
+            stm.setString(4, newCustomer.getEmail());
+            stm.setString(5, newCustomer.getCustomerAddress()
+                                        .getStreetAddress());
+            stm.setString(6, newCustomer.getCustomerAddress()
+                                        .getCity());
+            stm.setString(7, newCustomer.getPaymentMethod()
+                                        .toString());
+
+            stm.setInt(8, newCustomer.getId());
+
+            stm.executeUpdate();
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.WARNING, DATABASE_ERROR);
+            throw new RuntimeException(EXCEPTION_THROWN);
+        }
+
+        LOGGER.log(Level.INFO, UPDATE_FINISHED);
+    }
+
+    @Override
     public void add(Customer customer) {
 
-        try (Connection conn = newConnection();
-             PreparedStatement stm =
-                     conn.prepareStatement(INSERT_INTO_OUTCUSTOMERS_VALUES)) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(INSERT_INTO_OUTCUSTOMERS_VALUES)) {
 
-            conn.setAutoCommit(false);
             stm.setString(1, customer.getFirstName());
             stm.setString(2, customer.getLastName());
             stm.setString(3, customer.getTelephone());
             stm.setString(4, customer.getEmail());
-            stm.setString(5, customer.getCustomerAddress().getStreetAddress());
-            stm.setString(6, customer.getCustomerAddress().getCity());
-            stm.setString(7, customer.getPaymentMethod().toString());
+            stm.setString(5, customer.getCustomerAddress()
+                                     .getStreetAddress());
+            stm.setString(6, customer.getCustomerAddress()
+                                     .getCity());
+            stm.setString(7, customer.getPaymentMethod()
+                                     .toString());
 
             stm.execute();
-            conn.commit();
-            conn.setAutoCommit(true);
 
         } catch (SQLException ex) {
             LOGGER.log(Level.WARNING, DATABASE_ERROR);
@@ -205,12 +197,10 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
 
     @Override
     public void delete(Customer customer) {
-        //delete by last name
-        try (Connection conn = newConnection();
-             PreparedStatement stm =
-                     conn.prepareStatement(DELETE_FROM_OUTCARS_WHERE_LASTNAME)) {
+        //delete by id
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(DELETE_FROM_OUTCARS_WHERE_ID)) {
 
-            stm.setString(1, customer.getLastName());
+            stm.setInt(1, customer.getId());
             stm.executeUpdate();
 
         } catch (SQLException ex) {
@@ -222,28 +212,28 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
     }
 
     @Override
-    public void update(Customer newCustomer, Customer oldCustomer) {
-        try (Connection conn = newConnection();
-             PreparedStatement stm =
-                     conn.prepareStatement(SET_WHERE_LASTNAME)) {
+    public List<Customer> getAll() {
+        List<Customer> customers = new ArrayList<>();
 
-            stm.setString(1, newCustomer.getFirstName());
-            stm.setString(2, newCustomer.getLastName());
-            stm.setString(3, newCustomer.getTelephone());
-            stm.setString(4, newCustomer.getEmail());
-            stm.setString(5, newCustomer.getCustomerAddress().getStreetAddress());
-            stm.setString(6, newCustomer.getCustomerAddress().getCity());
-            stm.setString(7, newCustomer.getPaymentMethod().toString());
+        try (Connection conn = newConnection(); Statement stm = conn.createStatement(); ResultSet rs = stm.executeQuery(SELECT_ALL_FROM_OUTCUSTOMERS)) {
 
-            stm.setString(8, oldCustomer.getLastName());
+            while (rs.next()) {
 
-            stm.executeUpdate();
-
+                Customer customer = new Customer();
+                customer.setId(rs.getInt(ID));
+                customer.setFirstName(rs.getString(FIRST_NAME));
+                customer.setLastName(rs.getString(LAST_NAME));
+                customer.setTelephone(rs.getString(TELEPHONE));
+                customer.setEmail(rs.getString(EMAIL));
+                customer.setCustomerAddress(new CustomerAddress(rs.getString(STREET_ADDRESS), rs.getString(CITY)));
+                customer.setPaymentMethod(PaymentMethod.valueOf(rs.getString(PAYMENTMETHOD)));
+                customers.add(customer);
+            }
         } catch (SQLException ex) {
             LOGGER.log(Level.WARNING, DATABASE_ERROR);
             throw new RuntimeException(EXCEPTION_THROWN);
         }
 
-        LOGGER.log(Level.INFO, UPDATE_FINISHED);
+        return customers;
     }
 }

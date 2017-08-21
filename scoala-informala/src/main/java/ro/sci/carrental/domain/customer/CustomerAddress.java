@@ -10,7 +10,8 @@ public class CustomerAddress {
     /**
      * Default Constructor
      */
-    public CustomerAddress() {}
+    public CustomerAddress() {
+    }
 
     public CustomerAddress(String streetAddress, String city) {
         this.streetAddress = streetAddress;
@@ -36,7 +37,9 @@ public class CustomerAddress {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(streetAddress).append(",").append(city);
+        result.append(streetAddress)
+              .append(",")
+              .append(city);
         return result.toString();
     }
 }

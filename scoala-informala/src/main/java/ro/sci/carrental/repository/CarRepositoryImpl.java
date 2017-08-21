@@ -20,18 +20,15 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
 
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
 
-    private static final String SQL_SELECT_FROM_CARS =
-            "select make,model,dimension,color,seats,doors,ac,gps," + "gearbox,fueltype,vehiclecategory,reserved,rentprice from cars";
-
     private static final String SQL_INSERT_INTO_OUTCARS =
             "INSERT INTO outcars(make,model,dimension,color,seats,doors," + "ac,gps,gearbox,fueltype,vehiclecategory,reserved,rentprice) "
                     + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    private static final String DELETE_FROM_OUTCARS_WHERE_MODEL = "DELETE FROM outcars where model=?";
+    private static final String DELETE_FROM_OUTCARS_WHERE_ID = "DELETE FROM outcars where id=?";
 
     private static final String SQL_UPDATE_OUTCARS =
             "UPDATE outcars " + "SET make=?, model=?, dimension=?, color=?, seats=?, doors=?, ac=?, gps=?, gearbox=?, fueltype=?, "
-                    + "vehiclecategory=? ,reserved=?, rentprice=? " + "WHERE model = ?";
+                    + "vehiclecategory=? ,reserved=?, rentprice=? " + "WHERE id = ?";
     private static final String MAKE = "make";
     private static final String MODEL = "model";
     private static final String DIMENSION = "dimension";
@@ -53,13 +50,12 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
     private static final String SELECT_FROM_OUTCARS = "select * from outcars";
     private static final String SELECT_FROM_OUTCARS_WHERE_MAKE = "select * from outcars where make=?";
     private static final String SELECT_FROM_OUTCARS_WHERE_MAKE_AND_MODEL = "select * from outcars where make=? AND model=?";
-    private static final String TO_BE_IMPLEMENTED = "to be implemented";
+    private static final String ID = "id";
 
     @Override
     public void add(Car car) {
         try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SQL_INSERT_INTO_OUTCARS)) {
 
-            conn.setAutoCommit(false);
             stm.setString(1, car.getMake());
             stm.setString(2, car.getModel());
             stm.setFloat(3, car.getSize());
@@ -79,8 +75,6 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
                                  .getValue());
 
             stm.execute();
-            conn.commit();
-            conn.setAutoCommit(true);
 
         } catch (SQLException ex) {
             LOGGER.log(Level.WARNING, DATABASE_ERROR);
@@ -88,56 +82,6 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
         }
 
         LOGGER.log(Level.INFO, WRITING_IN_OUTCARS_HAS_FINISHED);
-    }
-
-    @Override
-    public void delete(Car car) {
-        //delete by model
-        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(DELETE_FROM_OUTCARS_WHERE_MODEL)) {
-
-            stm.setString(1, car.getModel());
-            stm.executeUpdate();
-
-        } catch (SQLException ex) {
-            LOGGER.log(Level.WARNING, DATABASE_ERROR);
-            throw new RuntimeException(EXCEPTION_THROWN);
-        }
-
-        LOGGER.log(Level.INFO, CAR_DELETE_HAS_COMPLETED);
-    }
-
-    @Override
-    public void update(Car car, Car oldCar) {
-        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SQL_UPDATE_OUTCARS)) {
-
-            stm.setString(1, car.getMake());
-            stm.setString(2, car.getModel());
-            stm.setFloat(3, car.getSize());
-            stm.setString(4, car.getColor());
-            stm.setInt(5, car.getSeats());
-            stm.setInt(6, car.getDoors());
-            stm.setBoolean(7, car.hasAc());
-            stm.setBoolean(8, car.isGps());
-            stm.setString(9, car.getGearbox()
-                                .toString());
-            stm.setString(10, car.getFuelType()
-                                 .toString());
-            stm.setString(11, car.getVehicleCategory()
-                                 .toString());
-            stm.setBoolean(12, car.getReserved());
-            stm.setDouble(13, car.getRentPrice()
-                                 .getValue());
-
-            stm.setString(14, oldCar.getModel());
-
-            stm.executeUpdate();
-
-        } catch (SQLException ex) {
-            LOGGER.log(Level.WARNING, DATABASE_ERROR);
-            throw new RuntimeException(EXCEPTION_THROWN);
-        }
-
-        LOGGER.log(Level.INFO, CAR_UPDATE_HAS_COMPLETED);
     }
 
     @Override
@@ -149,6 +93,7 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
             while (rs.next()) {
 
                 Car car = new Car();
+                car.setId(rs.getInt(ID));
                 car.setMake(rs.getString(MAKE));
                 car.setModel(rs.getString(MODEL));
                 car.setSize(rs.getFloat(DIMENSION));
@@ -187,7 +132,7 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
             while (rs.next()) {
 
                 Car car = new Car();
-
+                car.setId(rs.getInt(ID));
                 car.setMake(rs.getString(MAKE));
                 car.setModel(rs.getString(MODEL));
                 car.setSize(rs.getFloat(DIMENSION));
@@ -229,7 +174,7 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
             while (rs.next()) {
 
                 Car car = new Car();
-
+                car.setId(rs.getInt(ID));
                 car.setMake(rs.getString(MAKE));
                 car.setModel(rs.getString(MODEL));
                 car.setSize(rs.getFloat(DIMENSION));
@@ -254,5 +199,55 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
         }
 
         return searchedCars;
+    }
+
+    @Override
+    public void delete(Car car) {
+        //delete by id
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(DELETE_FROM_OUTCARS_WHERE_ID)) {
+
+            stm.setInt(1, car.getId());
+            stm.executeUpdate();
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.WARNING, DATABASE_ERROR);
+            throw new RuntimeException(EXCEPTION_THROWN);
+        }
+
+        LOGGER.log(Level.INFO, CAR_DELETE_HAS_COMPLETED);
+    }
+
+    @Override
+    public void update(Car car) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SQL_UPDATE_OUTCARS)) {
+
+            stm.setString(1, car.getMake());
+            stm.setString(2, car.getModel());
+            stm.setFloat(3, car.getSize());
+            stm.setString(4, car.getColor());
+            stm.setInt(5, car.getSeats());
+            stm.setInt(6, car.getDoors());
+            stm.setBoolean(7, car.hasAc());
+            stm.setBoolean(8, car.isGps());
+            stm.setString(9, car.getGearbox()
+                                .toString());
+            stm.setString(10, car.getFuelType()
+                                 .toString());
+            stm.setString(11, car.getVehicleCategory()
+                                 .toString());
+            stm.setBoolean(12, car.getReserved());
+            stm.setDouble(13, car.getRentPrice()
+                                 .getValue());
+
+            stm.setInt(14, car.getId());
+
+            stm.executeUpdate();
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.WARNING, DATABASE_ERROR);
+            throw new RuntimeException(EXCEPTION_THROWN);
+        }
+
+        LOGGER.log(Level.INFO, CAR_UPDATE_HAS_COMPLETED);
     }
 }

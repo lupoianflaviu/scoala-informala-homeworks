@@ -1,13 +1,12 @@
 package ro.sci.carrental.domain.car;
 
 import java.text.DecimalFormat;
-import java.text.Format;
 
 /**
  * Created by CCA on 25/06/2017.
  */
 public class Price {
-    private double value;
+    private double value = 0;
     private String formattedValue;
 
     public Price() {
