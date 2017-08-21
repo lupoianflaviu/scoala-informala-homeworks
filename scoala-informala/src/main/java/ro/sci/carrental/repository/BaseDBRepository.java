@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 abstract class BaseDBRepository {
 
-    void loadDriver() {
+    private void loadDriver() {
         try {
             Class.forName("org.postgresql.Driver").newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
