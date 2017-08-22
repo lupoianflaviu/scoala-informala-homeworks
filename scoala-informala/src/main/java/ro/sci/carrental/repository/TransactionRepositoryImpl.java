@@ -7,8 +7,10 @@ import ro.sci.carrental.calendar.Transaction;
 
 /**
  * Transaction repository implementation
+ *
+ * @author flaviu.lupoian
  */
-public class TransactionRepositoryImpl implements TransactionRepository {
+public class TransactionRepositoryImpl implements TransactionRepository<Transaction> {
     // to be implemented
     private List<Transaction> transactions = new ArrayList<Transaction>();
 

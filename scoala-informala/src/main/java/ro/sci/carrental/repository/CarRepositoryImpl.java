@@ -16,17 +16,15 @@ import ro.sci.carrental.domain.car.Gearbox;
 import ro.sci.carrental.domain.car.Price;
 import ro.sci.carrental.domain.car.VehicleCategory;
 
-public class CarRepositoryImpl extends BaseDBRepository implements CarRepository<Car> {
+public class CarRepositoryImpl extends BaseRepository implements CarRepository<Car> {
 
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
 
-    private static final String SQL_INSERT_INTO_OUTCARS =
+    private static final String INSERT_INTO_OUTCARS_VALUES =
             "INSERT INTO outcars(make,model,dimension,color,seats,doors," + "ac,gps,gearbox,fueltype,vehiclecategory,reserved,rentprice) "
                     + "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
     private static final String DELETE_FROM_OUTCARS_WHERE_ID = "DELETE FROM outcars where id=?";
-
-    private static final String SQL_UPDATE_OUTCARS =
+    private static final String UPDATE_OUTCARS_WHERE_ID =
             "UPDATE outcars " + "SET make=?, model=?, dimension=?, color=?, seats=?, doors=?, ac=?, gps=?, gearbox=?, fueltype=?, "
                     + "vehiclecategory=? ,reserved=?, rentprice=? " + "WHERE id = ?";
     private static final String MAKE = "make";
@@ -47,48 +45,16 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
     private static final String WRITING_IN_OUTCARS_HAS_FINISHED = "WRITING IN OUTCARS HAS FINISHED.";
     private static final String CAR_DELETE_HAS_COMPLETED = "CAR DELETE HAS COMPLETED.";
     private static final String CAR_UPDATE_HAS_COMPLETED = "CAR UPDATE HAS COMPLETED.";
-    private static final String SELECT_FROM_OUTCARS = "select * from outcars";
-    private static final String SELECT_FROM_OUTCARS_WHERE_MAKE = "select * from outcars where make=?";
-    private static final String SELECT_FROM_OUTCARS_WHERE_MAKE_AND_MODEL = "select * from outcars where make=? AND model=?";
+    private static final String SELECT_ALL_FROM_OUTCARS = "select * from outcars";
+    private static final String SELECT_ALL_FROM_OUTCARS_WHERE_MAKE = "select * from outcars where make=?";
+    private static final String SELECT_ALL_FROM_OUTCARS_WHERE_MAKE_AND_MODEL = "select * from outcars where make=? AND model=?";
     private static final String ID = "id";
-
-    @Override
-    public void add(Car car) {
-        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SQL_INSERT_INTO_OUTCARS)) {
-
-            stm.setString(1, car.getMake());
-            stm.setString(2, car.getModel());
-            stm.setFloat(3, car.getSize());
-            stm.setString(4, car.getColor());
-            stm.setInt(5, car.getSeats());
-            stm.setInt(6, car.getDoors());
-            stm.setBoolean(7, car.hasAc());
-            stm.setBoolean(8, car.isGps());
-            stm.setString(9, car.getGearbox()
-                                .toString());
-            stm.setString(10, car.getFuelType()
-                                 .toString());
-            stm.setString(11, car.getVehicleCategory()
-                                 .toString());
-            stm.setBoolean(12, car.getReserved());
-            stm.setDouble(13, car.getRentPrice()
-                                 .getValue());
-
-            stm.execute();
-
-        } catch (SQLException ex) {
-            LOGGER.log(Level.WARNING, DATABASE_ERROR);
-            throw new RuntimeException(EXCEPTION_THROWN);
-        }
-
-        LOGGER.log(Level.INFO, WRITING_IN_OUTCARS_HAS_FINISHED);
-    }
 
     @Override
     public List<Car> getAll() {
         List<Car> cars = new ArrayList<>();
 
-        try (Connection conn = newConnection(); Statement stm = conn.createStatement(); ResultSet rs = stm.executeQuery(SELECT_FROM_OUTCARS)) {
+        try (Connection conn = newConnection(); Statement stm = conn.createStatement(); ResultSet rs = stm.executeQuery(SELECT_ALL_FROM_OUTCARS)) {
 
             while (rs.next()) {
 
@@ -123,7 +89,7 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
 
         List<Car> searchedCars = new ArrayList<>();
 
-        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SELECT_FROM_OUTCARS_WHERE_MAKE)) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SELECT_ALL_FROM_OUTCARS_WHERE_MAKE)) {
 
             stm.setString(1, make);
 
@@ -164,7 +130,7 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
 
         List<Car> searchedCars = new ArrayList<>();
 
-        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SELECT_FROM_OUTCARS_WHERE_MAKE_AND_MODEL)) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SELECT_ALL_FROM_OUTCARS_WHERE_MAKE_AND_MODEL)) {
 
             stm.setString(1, make);
             stm.setString(2, model);
@@ -202,6 +168,38 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
     }
 
     @Override
+    public void add(Car car) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(INSERT_INTO_OUTCARS_VALUES)) {
+
+            stm.setString(1, car.getMake());
+            stm.setString(2, car.getModel());
+            stm.setFloat(3, car.getSize());
+            stm.setString(4, car.getColor());
+            stm.setInt(5, car.getSeats());
+            stm.setInt(6, car.getDoors());
+            stm.setBoolean(7, car.hasAc());
+            stm.setBoolean(8, car.isGps());
+            stm.setString(9, car.getGearbox()
+                                .toString());
+            stm.setString(10, car.getFuelType()
+                                 .toString());
+            stm.setString(11, car.getVehicleCategory()
+                                 .toString());
+            stm.setBoolean(12, car.getReserved());
+            stm.setDouble(13, car.getRentPrice()
+                                 .getValue());
+
+            stm.execute();
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.WARNING, DATABASE_ERROR);
+            throw new RuntimeException(EXCEPTION_THROWN);
+        }
+
+        LOGGER.log(Level.INFO, WRITING_IN_OUTCARS_HAS_FINISHED);
+    }
+
+    @Override
     public void delete(Car car) {
         //delete by id
         try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(DELETE_FROM_OUTCARS_WHERE_ID)) {
@@ -219,7 +217,7 @@ public class CarRepositoryImpl extends BaseDBRepository implements CarRepository
 
     @Override
     public void update(Car car) {
-        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SQL_UPDATE_OUTCARS)) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(UPDATE_OUTCARS_WHERE_ID)) {
 
             stm.setString(1, car.getMake());
             stm.setString(2, car.getModel());

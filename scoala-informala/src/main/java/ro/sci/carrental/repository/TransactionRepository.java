@@ -6,36 +6,34 @@ import ro.sci.carrental.calendar.Transaction;
 
 /**
  * Store all transactions in a repository.
+ * @author flaviu.lupoian
  */
-public interface TransactionRepository {
+public interface TransactionRepository<T extends Transaction> extends Repository<T> {
     /**
-     * Get all
+     * Get Transaction by Id
+     * @return List<T>
      */
-    List<Transaction> getAll();
+    List<T> getTransactionbyId(int id);
 
     /**
-     * Get by
+     * Add transaction
      */
-    List<Transaction> getTransactionbyId(int id);
+    void add(T transaction);
 
     /**
-     * Add
+     * Delete transaction
      */
-    void add(Transaction transaction);
+    void delete(T transaction);
 
     /**
-     * Add all
+     * Update transaction
      */
-    void addAll(List<Transaction> transactions);
+    void update(T transaction);
 
     /**
-     * Delete
+     * Get All Transactions
+     * @return List<T>
      */
-    void delete(Transaction transaction);
-
-    /**
-     * Update
-     */
-    void update(Transaction transaction);
+    List<T> getAll();
 
 }

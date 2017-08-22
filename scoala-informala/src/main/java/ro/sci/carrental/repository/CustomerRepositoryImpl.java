@@ -14,20 +14,20 @@ import ro.sci.carrental.domain.customer.Customer;
 import ro.sci.carrental.domain.customer.CustomerAddress;
 import ro.sci.carrental.domain.customer.PaymentMethod;
 
-public class CustomerRepositoryImpl extends BaseDBRepository implements CustomerRepository<Customer> {
+public class CustomerRepositoryImpl extends BaseRepository implements CustomerRepository<Customer> {
 
     private static final Logger LOGGER = Logger.getLogger("RentingSimulation");
-    private static final String SELECT_FROM_OUTCUSTOMERS_WHERE_LASTNAME = "select * from outcustomers where lastname=?";
+    private static final String SELECT_ALL_FROM_OUTCUSTOMERS_WHERE_LASTNAME = "select * from outcustomers where lastname=?";
     private static final String SELECT_ALL_FROM_OUTCUSTOMERS = "select * from outcustomers";
     private static final String SELECT_ALL_FROM_OUTCUSTOMERS_WHERE_FIRSTNAME_AND_LASTNAME = "SELECT * FROM outcustomers WHERE firstname=? AND lastname=?";
-    private static final String SELECT_FROM_OUTCUSTOMERS_WHERE_TELEPHONE = "SELECT * FROM outcustomers WHERE telephone=?";
+    private static final String SELECT_ALL_FROM_OUTCUSTOMERS_WHERE_TELEPHONE = "SELECT * FROM outcustomers WHERE telephone=?";
     private static final String INSERT_INTO_OUTCUSTOMERS_VALUES =
             "INSERT INTO outcustomers(firstname,lastname,telephone,email,streetaddress,city,paymentmethod) " + "values(?,?,?,?,?,?,?)";
     private static final String DELETE_FROM_OUTCARS_WHERE_ID = "DELETE FROM outcars where id=?";
     private static final String SET_WHERE_ID = "SET firstname=?, lastname=?, telephone=?, email=?, streetaddress=?, city=?, paymentmethod=? " + "WHERE id = ?";
     private static final String DATABASE_ERROR = "Database error!";
     private static final String EXCEPTION_THROWN = "Exception thrown";
-    private static final String UPDATE_FINISHED = "Modificarea clientului s-a terminat";
+    private static final String UPDATE_FINISHED = "CUSTOMER UPDATE FINISHED";
     private static final String DELETE_COMPLETE = "CUSTOMER DELETION COMPLETE";
     private static final String WRITING_COMPLETE = "WRITING IN OUTCUSTOMERS HAS FINISHED.";
     private static final String FIRST_NAME = "firstname";
@@ -44,7 +44,7 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
 
         List<Customer> searchedCustomers = new ArrayList<>();
 
-        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SELECT_FROM_OUTCUSTOMERS_WHERE_LASTNAME)) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SELECT_ALL_FROM_OUTCUSTOMERS_WHERE_LASTNAME)) {
 
             stm.setString(1, lastName);
 
@@ -111,7 +111,7 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
     public List<Customer> getCustomerByTelephone(String telephone) {
         List<Customer> searchedCustomers = new ArrayList<>();
 
-        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SELECT_FROM_OUTCUSTOMERS_WHERE_TELEPHONE)) {
+        try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(SELECT_ALL_FROM_OUTCUSTOMERS_WHERE_TELEPHONE)) {
 
             stm.setString(1, telephone);
 
@@ -197,7 +197,7 @@ public class CustomerRepositoryImpl extends BaseDBRepository implements Customer
 
     @Override
     public void delete(Customer customer) {
-        //delete by id
+
         try (Connection conn = newConnection(); PreparedStatement stm = conn.prepareStatement(DELETE_FROM_OUTCARS_WHERE_ID)) {
 
             stm.setInt(1, customer.getId());

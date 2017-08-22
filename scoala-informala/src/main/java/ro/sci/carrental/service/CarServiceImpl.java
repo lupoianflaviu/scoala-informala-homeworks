@@ -8,6 +8,8 @@ import ro.sci.carrental.repository.Repository;
 
 /**
  * Implementation of CarService.
+ *
+ * @author flaviu.lupoian
  */
 public class CarServiceImpl implements CarService<Car> {
 
@@ -33,24 +35,10 @@ public class CarServiceImpl implements CarService<Car> {
         this.carRepository.update(car);
     }
 
-    /**
-     * Public method findCarsByMake searches cars by make.
-     *
-     * @param make holds value of car make
-     * @return list of found cars.
-     */
-
     public List<Car> findCarsByMake(String make) {
         return this.carRepository.getCarsByMake(make);
     }
 
-    /**
-     * Public method findCarsByMakeAndModel searches cars by make and model.
-     *
-     * @param make  holds value of car make
-     * @param model holds value f car model
-     * @return list of found cars.
-     */
     public List<Car> findCarsByMakeAndModel(String make, String model) {
         return this.carRepository.getCarsByMakeAndModel(make, model);
     }

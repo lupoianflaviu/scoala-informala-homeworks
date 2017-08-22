@@ -4,7 +4,6 @@ package ro.sci.carrental.domain.car;
  * Car Class initialisation
  *
  * @author Flaviu Lupoian
- * @version 1.0
  * @since 1.8
  */
 public class Car {
@@ -22,12 +21,6 @@ public class Car {
     private VehicleCategory vehicleCategory;
     private boolean reserved = false;
     private Price rentPrice;
-
-    /**
-     * Default constructor
-     */
-    public Car() {
-    }
 
     public String getMake() {
         return make;
@@ -186,36 +179,8 @@ public class Car {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("\n")
-              .append(id)
-              .append(",")
-              .append(make)
-              .append(",")
-              .append(model)
-              .append(",")
-              .append(size)
-              .append(",")
-              .append(color)
-              .append(",")
-              .append(seats)
-              .append(",")
-              .append(doors)
-              .append(",")
-              .append(ac)
-              .append(",")
-              .append(gps)
-              .append(",")
-              .append(gearbox)
-              .append(",")
-              .append(fuelType)
-              .append(",")
-              .append(vehicleCategory)
-              .append(",")
-              .append(reserved)
-              .append(",")
-              .append(rentPrice);
-        return result.toString();
+        return "\n" + id + "," + make + "," + model + "," + size + "," + color + "," + seats + "," + doors + "," + ac + "," + gps + "," + gearbox + ","
+                + fuelType + "," + vehicleCategory + "," + reserved + "," + rentPrice;
     }
 
     public int getId() {

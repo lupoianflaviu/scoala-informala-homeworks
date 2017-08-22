@@ -7,6 +7,8 @@ import ro.sci.carrental.repository.CarRepository;
 
 /**
  * Service Interface for Car.
+ *
+ * @author flaviu.lupoian
  */
 public interface CarService<T> {
 
@@ -50,6 +52,8 @@ public interface CarService<T> {
 
     /**
      * Inject repository
+     *
+     * @param carRepository Car repository
      */
     void setCarRepository(CarRepository<Car> carRepository);
 }

@@ -1,6 +1,5 @@
 package ro.sci.carrental.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ro.sci.carrental.domain.customer.Customer;
@@ -8,6 +7,8 @@ import ro.sci.carrental.repository.CustomerRepository;
 
 /**
  * Implementation of CustomerService.
+ *
+ * @author flaviu.lupoian
  */
 public class CustomerServiceImpl implements CustomerService<Customer> {
 
@@ -46,16 +47,7 @@ public class CustomerServiceImpl implements CustomerService<Customer> {
 
     @Override
     public List<Customer> findCustomerByTelephone(String telephone) {
-        List<Customer> foundCustomers = new ArrayList<>();
-
-        for (Customer customer : customerRepository.getAll()) {
-            if ((customer.getTelephone()
-                         .equalsIgnoreCase(telephone))) {
-                foundCustomers.add(customer);
-            }
-        }
-
-        return foundCustomers;
+        return this.customerRepository.getCustomerByTelephone(telephone);
     }
 
     @Override

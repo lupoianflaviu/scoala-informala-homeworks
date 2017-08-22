@@ -3,14 +3,12 @@ package ro.sci.carrental.domain.car;
 import java.text.DecimalFormat;
 
 /**
- * Created by CCA on 25/06/2017.
+ * Created on 25/06/2017.
+ * @author flaviu.lupoian
  */
 public class Price {
     private double value = 0;
     private String formattedValue;
-
-    public Price() {
-    }
 
     public Price(double value) {
 

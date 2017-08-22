@@ -4,8 +4,6 @@ package ro.sci.carrental.domain.customer;
  * Customer Class contains customers blueprint.
  *
  * @author Flaviu Lupoian
- * @version 1.1
- * @since 1.8
  */
 public class Customer {
     private int id;
@@ -15,12 +13,6 @@ public class Customer {
     private String email;
     private CustomerAddress customerAddress;
     private PaymentMethod paymentMethod;
-
-    /**
-     * Default Constructor
-     */
-    public Customer() {
-    }
 
     public String getFirstName() {
         return firstName;
@@ -116,21 +108,6 @@ public class Customer {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("\n")
-              .append(id)
-              .append(",")
-              .append(firstName)
-              .append(",")
-              .append(lastName)
-              .append(",")
-              .append(telephone)
-              .append(",")
-              .append(email)
-              .append(",")
-              .append(customerAddress)
-              .append(",")
-              .append(paymentMethod);
-        return result.toString();
+        return "\n" + id + "," + firstName + "," + lastName + "," + telephone + "," + email + "," + customerAddress + "," + paymentMethod;
     }
 }

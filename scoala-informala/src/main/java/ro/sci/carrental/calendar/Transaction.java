@@ -2,15 +2,14 @@ package ro.sci.carrental.calendar;
 
 /**
  * Transaction
+ *
+ * @author flaviu.lupoian
  */
 public class Transaction {
 
     private int id;
     private String name;
     private String argument;
-
-    public Transaction() {
-    }
 
     public int getId() {
         return id;
