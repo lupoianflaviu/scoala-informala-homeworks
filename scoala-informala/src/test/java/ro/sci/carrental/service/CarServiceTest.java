@@ -34,6 +34,8 @@ public class CarServiceTest {
 
     @Before
     public void init() throws Exception {
+        car.setId(100);
+        car2.setId(101);
         carRepositoryMock = mock(CarRepositoryImpl.class);
         carService.setCarRepository(carRepositoryMock);
         carList.add(car);
@@ -80,6 +82,7 @@ public class CarServiceTest {
 
     @Test
     public void testDeleteNotUsed() throws Exception {
+        carService.add(car2);
         verify(carRepositoryMock, never()).delete(car);
     }
 
