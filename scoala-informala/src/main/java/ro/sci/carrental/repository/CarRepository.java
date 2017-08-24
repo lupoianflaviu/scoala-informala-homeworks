@@ -1,13 +1,13 @@
 package ro.sci.carrental.repository;
 
-import ro.sci.carrental.domain.car.Car;
-
 import java.util.List;
+
+import ro.sci.carrental.domain.car.Car;
 
 /**
  * Repository interface for Car, this will help managing all persistence operations related to Car.
  */
-public interface CarRepository<T extends Car>  extends Repository<T>{
+public interface CarRepository<T extends Car> extends Repository<T> {
     /**
      * Get all cars in the system
      *
@@ -18,7 +18,6 @@ public interface CarRepository<T extends Car>  extends Repository<T>{
     /**
      * Return all the cars of a certain maker
      *
-     * @param v
      * @return List<Car>
      */
     List<T> getCarsByMake(String v);
@@ -26,50 +25,22 @@ public interface CarRepository<T extends Car>  extends Repository<T>{
     /**
      * Return all cars by fuel type
      *
-     * @param v
      * @return List<Car>
      */
     List<T> getCarsByMakeAndModel(String make, String model);
 
     /**
      * Add a car in the system.
-     *
-     * @param t
      */
     void add(T t);
 
     /**
-     * Add all cars in the system.
-     *
-     * @param t
-     */
-    void addAll();
-
-    /**
      * Delete a car from the system.
-     *
-     * @param t
      */
     void delete(T t);
 
     /**
      * Updates car information in the system.
-     *
-     * @param t
      */
-    void update(T t, T v);
-
-    /**
-     * Reserves Car
-     * @param t
-     */
-    void reserve(T t);
-
-    /**
-     * Car ready for rent
-     * @param t
-     */
-    void freeup(T t);
-
-    int getCapacity();
+    void update(T t);
 }

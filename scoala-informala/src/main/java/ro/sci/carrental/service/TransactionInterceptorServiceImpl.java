@@ -1,24 +1,39 @@
 package ro.sci.carrental.service;
 
-import ro.sci.carrental.calendar.Transaction;
-import ro.sci.carrental.repository.TransactionRepository;
-
-import java.util.ArrayList;
 import java.util.List;
 
+import ro.sci.carrental.calendar.Transaction;
+
 /**
- * Created by CCA on 10/06/2017.
+ * Created on 10/06/2017.
+ *
+ * @author flaviu.lupoian
  */
-public class TransactionInterceptorServiceImpl implements TransactionInterceptorService{
+public class TransactionInterceptorServiceImpl<T extends Transaction> implements TransactionInterceptorService<T> {
     // to be implemented
 
-    private TransactionRepository transactionRepository;
-
-    public List<Transaction> findTransactionbyId(int id) {
+    @Override
+    public List<T> getAll() {
         return null;
     }
 
-    public List<Transaction> findAll(ArrayList<Transaction> transactions) {
+    @Override
+    public List<T> findTransactionbyId(int id) {
         return null;
+    }
+
+    @Override
+    public void add(T transaction) {
+
+    }
+
+    @Override
+    public void delete(T transaction) {
+
+    }
+
+    @Override
+    public void update(T transaction) {
+
     }
 }

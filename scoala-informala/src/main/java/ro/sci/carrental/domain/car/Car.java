@@ -4,10 +4,10 @@ package ro.sci.carrental.domain.car;
  * Car Class initialisation
  *
  * @author Flaviu Lupoian
- * @version 1.0
  * @since 1.8
  */
 public class Car {
+    private int id;
     private String make;
     private String model;
     private float size;
@@ -21,12 +21,6 @@ public class Car {
     private VehicleCategory vehicleCategory;
     private boolean reserved = false;
     private Price rentPrice;
-
-    /**
-     * Default constructor
-     */
-    public Car() {
-    }
 
     public String getMake() {
         return make;
@@ -134,22 +128,35 @@ public class Car {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Car car = (Car) o;
 
-        if (Float.compare(car.size, size) != 0) return false;
-        if (seats != car.seats) return false;
-        if (doors != car.doors) return false;
-        if (ac != car.ac) return false;
-        if (gps != car.gps) return false;
-        if (reserved != car.reserved) return false;
-        if (make != null ? !make.equals(car.make) : car.make != null) return false;
-        if (model != null ? !model.equals(car.model) : car.model != null) return false;
-        if (color != null ? !color.equals(car.color) : car.color != null) return false;
-        if (gearbox != car.gearbox) return false;
-        if (fuelType != car.fuelType) return false;
+        if (Float.compare(car.size, size) != 0)
+            return false;
+        if (seats != car.seats)
+            return false;
+        if (doors != car.doors)
+            return false;
+        if (ac != car.ac)
+            return false;
+        if (gps != car.gps)
+            return false;
+        if (reserved != car.reserved)
+            return false;
+        if (make != null ? !make.equals(car.make) : car.make != null)
+            return false;
+        if (model != null ? !model.equals(car.model) : car.model != null)
+            return false;
+        if (color != null ? !color.equals(car.color) : car.color != null)
+            return false;
+        if (gearbox != car.gearbox)
+            return false;
+        if (fuelType != car.fuelType)
+            return false;
         return vehicleCategory == car.vehicleCategory;
     }
 
@@ -172,11 +179,15 @@ public class Car {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("\n").append(make).append(",").append(model).append(",").append(size).append(",")
-                .append(color).append(",").append(seats).append(",").append(doors).append(",").append(ac).append(",")
-                .append(gps).append(",").append(gearbox).append(",").append(fuelType).append(",").append(vehicleCategory)
-                .append(",").append(reserved).append(",").append(rentPrice);
-        return result.toString();
+        return "\n" + id + "," + make + "," + model + "," + size + "," + color + "," + seats + "," + doors + "," + ac + "," + gps + "," + gearbox + ","
+                + fuelType + "," + vehicleCategory + "," + reserved + "," + rentPrice;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

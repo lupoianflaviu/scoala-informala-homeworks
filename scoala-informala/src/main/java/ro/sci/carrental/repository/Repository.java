@@ -3,21 +3,32 @@ package ro.sci.carrental.repository;
 import java.util.List;
 
 /**
- * Created by CCA on 16/07/2017.
+ * Created on 16/07/2017.
+ * @author flaviu.lupoian
  */
 public interface Repository<T> {
-
-    void addAll();
-
+    /**
+     * Add object of type T in Repository
+     *
+     * @param t Can be Car, Customer or Transactions
+     */
     void add(T t);
 
+    /**
+     * Delete object of type T from Repository
+     * @param t Can be Car, Customer or Transactions
+     */
     void delete(T t);
 
-    void update(T t, T v);
+    /**
+     * Update object of type T in Repository
+     * @param t Can be Car, Customer or Transactions
+     */
+    void update(T t);
 
+    /**
+     * Get all objects List from Repository
+     * @return List<T> list of objects
+     */
     List<T> getAll();
-
-    List<T> getCarsByMake(String make);
-
-    List<T> getCarsByMakeAndModel(String make, String model);
 }

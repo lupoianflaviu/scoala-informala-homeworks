@@ -4,8 +4,6 @@ package ro.sci.carrental.domain.customer;
  * Customer Class contains customers blueprint.
  *
  * @author Flaviu Lupoian
- * @version 1.1
- * @since 1.8
  */
 public class Customer {
     private int id;
@@ -15,12 +13,6 @@ public class Customer {
     private String email;
     private CustomerAddress customerAddress;
     private PaymentMethod paymentMethod;
-
-    /**
-     * Default Constructor
-     */
-    public Customer() {
-    }
 
     public String getFirstName() {
         return firstName;
@@ -80,16 +72,23 @@ public class Customer {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Customer customer = (Customer) o;
 
-        if (id != customer.id) return false;
-        if (firstName != null ? !firstName.equals(customer.firstName) : customer.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(customer.lastName) : customer.lastName != null) return false;
-        if (telephone != null ? !telephone.equals(customer.telephone) : customer.telephone != null) return false;
-        if (email != null ? !email.equals(customer.email) : customer.email != null) return false;
+        if (id != customer.id)
+            return false;
+        if (firstName != null ? !firstName.equals(customer.firstName) : customer.firstName != null)
+            return false;
+        if (lastName != null ? !lastName.equals(customer.lastName) : customer.lastName != null)
+            return false;
+        if (telephone != null ? !telephone.equals(customer.telephone) : customer.telephone != null)
+            return false;
+        if (email != null ? !email.equals(customer.email) : customer.email != null)
+            return false;
         if (customerAddress != null ? !customerAddress.equals(customer.customerAddress) : customer.customerAddress != null)
             return false;
         return paymentMethod == customer.paymentMethod;
@@ -109,10 +108,6 @@ public class Customer {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("\n").append(firstName).append(",").append(lastName).append(",")
-                .append(telephone).append(",").append(email).append(",").append(customerAddress).append(",")
-                .append(paymentMethod);
-        return result.toString();
+        return "\n" + id + "," + firstName + "," + lastName + "," + telephone + "," + email + "," + customerAddress + "," + paymentMethod;
     }
 }

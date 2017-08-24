@@ -2,125 +2,133 @@ package ro.sci.carrental.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import ro.sci.carrental.domain.car.*;
-import ro.sci.carrental.repository.DBCarRepositoryImpl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ro.sci.carrental.domain.car.Car;
+import ro.sci.carrental.repository.CarRepository;
+import ro.sci.carrental.repository.CarRepositoryImpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+/**
+ * @author flaviu.lupoian
+ *
+ * date 2017.08.22
+ */
 public class CarServiceTest {
-    private DBCarRepositoryImpl carRepository = new DBCarRepositoryImpl();
-    private CarService<Car> carService = new CarServiceImpl(carRepository);
+
     private Car car = new Car();
     private Car car2 = new Car();
+    private CarService<Car> carService = new CarServiceImpl();
+    private CarRepository<Car> carRepositoryMock;
+    private List<Car> carList = new ArrayList<>();
 
     @Before
-    public void setUp() throws Exception {
-
-        car.setMake("Trabant");
-        car.setModel("Vechi");
-        car.setSize(7);
-        car.setColor("color");
-        car.setSeats(5);
-        car.setDoors(5);
-        car.setAc(true);
-        car.setGps(true);
-        car.setGearbox(Gearbox.MANUAL);
-        car.setFuelType(FuelType.DIESEL);
-        car.setVehicleCategory(VehicleCategory.HATCHBACK);
-        car.isReserved(false);
-        car.setRentPrice(new Price(20));
-
-        car2.setMake("Ferrari");
-        car2.setModel("Testarosa");
-        car2.setSize(7);
-        car2.setColor("color");
-        car2.setSeats(5);
-        car2.setDoors(5);
-        car2.setAc(true);
-        car2.setGps(true);
-        car2.setGearbox(Gearbox.MANUAL);
-        car2.setFuelType(FuelType.DIESEL);
-        car2.setVehicleCategory(VehicleCategory.HATCHBACK);
-        car2.isReserved(false);
-        car2.setRentPrice(new Price(20));
+    public void init() throws Exception {
+        car.setId(100);
+        car2.setId(101);
+        carRepositoryMock = mock(CarRepositoryImpl.class);
+        carService.setCarRepository(carRepositoryMock);
+        carList.add(car);
+        when(carRepositoryMock.getAll()).thenReturn(carList);
+        when(carRepositoryMock.getCarsByMake(anyString())).thenReturn(carList);
+        when(carRepositoryMock.getCarsByMakeAndModel(anyString(), anyString())).thenReturn(carList);
     }
 
     @Test
-    public void addAll() throws Exception {
-
+    public void testGetAll() throws Exception {
+        assertEquals(1, carService.getAll()
+                                  .size());
+        verify(carRepositoryMock, times(1)).getAll();
     }
 
     @Test
-    public void getAll() throws Exception {
+    public void testGetAllNotEquals() throws Exception {
+        assertNotEquals(0, carService.getAll()
+                                     .size());
     }
 
     @Test
-    public void add() throws Exception {
+    public void testAdd() throws Exception {
+        carService.add(car2);
 
-        carService.add(car);
-
-        assertEquals(3, carRepository.getCarsByMake("Trabant").size());
+        verify(carRepositoryMock, times(1)).add(car2);
+        assertEquals(1, carService.getAll()
+                                  .size());
     }
 
     @Test
-    public void addNotEquals() throws Exception {
-
-        carService.add(car);
-
-        assertNotEquals(0, carRepository.getCarsByMake("Trabant").size());
+    public void testAddNotUsed() throws Exception {
+        verify(carRepositoryMock, never()).add(car2);
     }
 
     @Test
-    public void delete() throws Exception {
-
+    public void testDelete() throws Exception {
+        carService.add(car2);
         carService.delete(car);
+        carService.delete(car2);
 
-        assertEquals(0, carRepository.getCarsByMake("Trabant").size());
+        verify(carRepositoryMock, times(2)).delete(car);
     }
 
     @Test
-    public void deleteNotEquals() throws Exception {
-
-        carService.delete(car);
-
-        assertNotEquals(1, carRepository.getCarsByMake("Trabant").size());
+    public void testDeleteNotUsed() throws Exception {
+        carService.add(car2);
+        verify(carRepositoryMock, never()).delete(car);
     }
 
     @Test
-    public void update() throws Exception {
-        carService.update(car2, car);
-
-        assertEquals(1, carRepository.getCarsByMake("Ferrari").size());
+    public void testUpdate() throws Exception {
+        carService.update(car2);
+        verify(carRepositoryMock, times(1)).update(car2);
     }
 
     @Test
-    public void updateNotEquals() throws Exception {
-        carService.update(car2, car);
-
-        assertNotEquals(0, carRepository.getCarsByMake("Ferrari").size());
+    public void testUpdateNotUsed() throws Exception {
+        verify(carRepositoryMock, never()).update(car2);
     }
 
     @Test
-    public void findCarsByMake() throws Exception {
-        assertEquals(47, carRepository.getCarsByMake("Bmw").size());
+    public void testFindCarsByMake() throws Exception {
+        carService.findCarsByMake("Bmw");
 
+        verify(carRepositoryMock, times(1)).getCarsByMake("Bmw");
+        assertEquals(1, carService.getAll()
+                                  .size());
     }
 
     @Test
-    public void findCarsByMakeNotEquals() throws Exception {
-        assertNotEquals(0, carRepository.getCarsByMake("Bmw").size());
-
+    public void testFindCarsByMakeNotEquals() throws Exception {
+        carService.findCarsByMake("Mercedes");
+        verify(carRepositoryMock, never()).getCarsByMake("Bmw");
+        assertNotEquals(0, carService.getAll()
+                                     .size());
     }
 
     @Test
-    public void findCarsByMakeAndModel() throws Exception {
-        assertEquals(0, carRepository.getCarsByMakeAndModel("Bmw", "").size());
+    public void testFindCarsByMakeAndModel() throws Exception {
+        carService.findCarsByMakeAndModel("Bmw", "520d");
+
+        verify(carRepositoryMock, times(1)).getCarsByMakeAndModel("Bmw", "520d");
+        assertEquals(1, carService.getAll()
+                                  .size());
     }
 
     @Test
-    public void findCarsByMakeAndModelNotEquals() throws Exception {
-        assertNotEquals(1, carRepository.getCarsByMakeAndModel("Bmw", "").size());
-    }
+    public void testFindCarsByMakeAndModelNotEquals() throws Exception {
+        carService.findCarsByMakeAndModel("Mercedes", "e200");
 
+        verify(carRepositoryMock, never()).getCarsByMakeAndModel("Bmw", "520d");
+        assertNotEquals(0, carService.getAll()
+                                     .size());
+    }
 }

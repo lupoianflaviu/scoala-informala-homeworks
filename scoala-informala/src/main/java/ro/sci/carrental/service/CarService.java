@@ -2,12 +2,15 @@ package ro.sci.carrental.service;
 
 import java.util.List;
 
+import ro.sci.carrental.domain.car.Car;
+import ro.sci.carrental.repository.CarRepository;
+
 /**
  * Service Interface for Car.
+ *
+ * @author flaviu.lupoian
  */
 public interface CarService<T> {
-
-    void addAll();
 
     List<T> getAll();
 
@@ -30,7 +33,7 @@ public interface CarService<T> {
      *
      * @param t generic type
      */
-    void update(T t, T v);
+    void update(T t);
 
     /**
      * Find same make cars in system.
@@ -43,9 +46,14 @@ public interface CarService<T> {
     /**
      * Find same make and model cars in system.
      *
-     * @param make
-     * @param model
      * @return List<Car>
      */
     List<T> findCarsByMakeAndModel(String make, String model);
+
+    /**
+     * Inject repository
+     *
+     * @param carRepository Car repository
+     */
+    void setCarRepository(CarRepository<Car> carRepository);
 }
